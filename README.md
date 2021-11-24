@@ -4,7 +4,7 @@
 
 - [] identificar o estafeta que utilizou mais vezes um meio de transporte mais ecológico; (André)
 
-- [] identificar que estafetas entregaram determinada(s) encomenda(s) a um determinado cliente; (Mendes)
+- [certo] identificar que estafetas entregaram determinada(s) encomenda(s) a um determinado cliente; (Mendes)
 
 - [] identificar os clientes servidos por um determinado estafeta; (Ogando)
 
