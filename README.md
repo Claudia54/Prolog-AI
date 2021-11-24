@@ -2,36 +2,40 @@
 
 ## NOTAS
 
-- [] identificar o estafeta que utilizou mais vezes um meio de transporte mais ecológico; (André)
+- [ ] identificar o estafeta que utilizou mais vezes um meio de transporte mais ecológico; (André)
 
+<<<<<<< HEAD
 - [certo] identificar que estafetas entregaram determinada(s) encomenda(s) a um determinado cliente; (Mendes)
+=======
+- [ ] identificar que estafetas entregaram determinada(s) encomenda(s) a um determinado cliente; (Mendes)
+>>>>>>> b8d78dedc19d1671e1f034a0dfd25c278ad9021b
 
-- [] identificar os clientes servidos por um determinado estafeta; (Ogando)
+- [ ] identificar os clientes servidos por um determinado estafeta; (Ogando)
 
-- [] calcular o valor faturado pela Green Distribution num determinado dia; (Ogando)
+- [ ] calcular o valor faturado pela Green Distribution num determinado dia; (Ogando)
 
-- [] identificar quais as zonas (e.g., rua ou freguesia) com maior volume de
+- [ ] identificar quais as zonas (e.g., rua ou freguesia) com maior volume de
 entregas por parte da Green Distribution; (Claudia)
 
-- [] calcular a classificação média de satisfação de cliente para um determinado
+- [ ] calcular a classificação média de satisfação de cliente para um determinado
 estafeta; (Claudia)
 
-- [] identificar o número total de entregas pelos diferentes meios de transporte,
+- [ ] identificar o número total de entregas pelos diferentes meios de transporte,
 num determinado intervalo de tempo; (Claudia)
 
-- [] identificar o número total de entregas pelos estafetas, num determinado
+- [ ] identificar o número total de entregas pelos estafetas, num determinado
 intervalo de tempo;(Ogando)
 
-- [] calcular o número de encomendas entregues e não entregues pela Green
+- [ ] calcular o número de encomendas entregues e não entregues pela Green
 Distribution, num determinado período de tempo; (André)
 
-- [] calcular o peso total transportado por estafeta num determinado dia. (Mendes)
+- [ ] calcular o peso total transportado por estafeta num determinado dia. (Mendes)
 
 ------EXTRA 
 
-11- calcular o estafeta com mais viagens; (Andre)
+- [ ] calcular o estafeta com mais viagens; (Andre)
 
-12- calcular peso medio que cada estafeta num determinado tempo; (Mendes)
+- [ ] calcular peso medio que cada estafeta num determinado tempo; (Mendes)
 
 
 ## NOTAS
