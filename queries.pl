@@ -1,50 +1,180 @@
-%identificar quais as zonas com maior volume de entregas por parte da green distribution 
-% rua(Vasco_da_Gama, Gualtar, Braga).
-% rua(Da_Torre, Bagunte, Porto).
-% rua(Castelo_do_Norte, Nogueiro, Braga).
-% rua(Afonso_de_Jeronimo, Prado, Braga).
-% rua(Familia_Real, Greenville, Algarve).
-%rua(Torta, Esposende, Alentejo).
+%identificar quais as zonas com maior volume de entregas por parte da green distribution
+%rua-freguesia 
+rua(vasco_da_Gama, gualtar).
+rua(da_Torre, bagunte).
+rua(castelo_do_Norte, nogueiro).
+rua(afonso_de_Jeronimo, prado).
+rua(familia_Real, greenville).
+rua(torta, esposende).
 
-% cliente(Ogando, Vasco_da_Gama).
-% cliente(Paulo, Afonso_de_Jeronimo).
-% cliente(Marlene, Torta).
-% cliente(Susana, Familia_Real).
-% cliente(Jessica, Da_Torre).
-% cliente(Sandro, Castelo_do_Norte).
+%clientes -nome , rua 
+clienteerua(ogando,rua(vasco_da_Gama, gualtar)).
+clienteerua(paulo,rua(da_Torre,bagunte)).
+clienteerua(marlene,rua(castelo_do_Norte,nogueiro)).
+clienteerua(susana,rua(afonso_de_Jeronimo,prado)).
+clienteerua(jessica,rua(familia_Real, greenville)).
+clienteerua(sandro,rua(torta, esposende)).
 
-% estafeta(Roger).
-% estafeta(Sheila).
-% estafeta(Ilidio).
-% estafeta(Carlos).
-% estafeta(Catia).
-% estafeta(Filipe).
-
-% veiculo(Bicicleta).
-% veiculo(Mota).
-% veiculo(Carro).
-% (estafeta, cliente, transporte,peso, data, ranking,o q leva)
-caminho(roger, sandro, bicicleta,2,15,5,computador).
-caminho(ilidio, paulo, carro,8,15,5,roupa).
-caminho(sheila, sandro, mota,5,15,5,roupa).
-caminho(filipe, jessica, carro,55,15,5,roupa).
-caminho(carlos, paulo, mota,10,15,5,roupa).
-caminho(carlos, busana, bicicleta,2,15,5,roupa).
-caminho(ilidio, ogando, bicicleta,2,15,5,roupa).
-caminho(catia, jessica, mota,17,15,5,roupa).
-caminho(sheila, marlene, mota,10,15,5,roupa).
-caminho(carlos, marlene, bicicleta,2,15,5,ananas).
-caminho(carlos, marle, bicicleta,2,15,5,roupa).
-caminho(catia,paulo,bicicleta,4,15,5,roupa).
+%encomenda ( o que leva ,peso,volume(cm) )
+encomenda(roupa,5,20).
+encomenda(computador,1,75).
+encomenda(roupa,2,15).
+encomenda(livros,1,5).
+encomenda(livros,3,15).
+encomenda(bicicleta,12,2800).%carro 
+encomenda(livros,18,100).%mota
 
 estafeta(catia).
 estafeta(carlos).
 estafeta(sheila).
 estafeta(ilidio).
+estafeta(filipe).
+estafeta(roger).
 
 veiculo(carro,2).
 veiculo(bicicleta,0).
 veiculo(mota,1).
+
+hora(18,30).
+hora(17,20).
+hora(11,15).
+hora(19,00).
+hora(19,20).
+
+data(5,10,2020).
+data(4,10,2020).
+data(4,11,2020).
+data(24,11,2021).
+data(3,12,2021).
+data(2,12,2021).
+
+%tempo(mes,dia, hora)
+tempo(0,1,0).
+tempo(0,10,0).
+tempo(1,0,0).
+tempo(0,8,0).
+tempo(0,0,8).
+tempo(0,5,0).
+tempo(0,0,1).
+
+
+%hora e dia da encomenda, hora e dia da entrega da encomenda 
+dataehora(hora(18,30),data(4,10,2020)).
+dataehora(hora(17,20),data(24,11,2021)).
+dataehora(hora(11,15),data(2,12,2021)).
+dataehora(hora(11,50),data(4,10,2020)).
+dataehora(hora(19,20),data(24,11,2021)).%data de entrega ,data de encomenda
+dataehora(hora(11,15),data(2,12,2021)).
+
+
+dataehora1(data(5,10,2020),hora(17,20)).
+dataehora1(data(3,12,2021),hora(19,00)).
+dataehora1(data(3,12,2021),hora(19,20)).
+dataehora1(data(4,11,2020),hora(19,00)).
+dataehora1(data(2,12,2021),hora(18,30)).
+dataehora1(data(2,12,2021),hora(19,20)).
+
+
+
+% (estafeta, cliente,veiculo, data,o q leva,preço, tempo que se quer q demore, numero encomenda )
+caminho(roger,sandro,bicicleta,
+    dataehora(hora(18,30),data(4,10,2020)),
+    encomenda(roupa,5,20),25,tempo(0,1,0),200).
+
+caminho(ilidio,paulo,carro,
+    dataehora(hora(18,30),data(4,10,2020)),
+    encomenda(bicicleta,12,2800),45,tempo(0,1,0),2001).
+
+caminho(sheila,sandro,mota,
+    dataehora(hora(17,20),data(24,11,2021)),
+    encomenda(roupa,5,20),3,tempo(0,1,0),2002).
+
+caminho(filipe,jessica,carro,
+    dataehora(hora(11,15),data(2,12,2021)),
+    encomenda(computador,1,75),30,tempo(0,1,0),2003).
+
+caminho(carlos,paulo,mota,
+    dataehora(hora(11,50),data(4,10,2020)),
+    encomenda(livros,1,5),2,tempo(1,0,0),2004).
+
+caminho(carlos,susana,bicicleta,
+    dataehora(hora(19,20),data(24,11,2021)),
+    encomenda(livros,1,5),3,tempo(0,5,0),2005).
+
+caminho(ilidio,ogando,bicicleta,
+    dataehora(hora(19,00),data(4,10,2020)),
+    encomenda(livros,3,15),2,tempo(1,0,0),2006).
+
+caminho(catia,jessica,mota,
+    dataehora(hora(11,15),data(2,12,2021)),
+    encomenda(livros,1,5),6,tempo(0,1,0),2007).
+
+caminho(sheila,marlene,mota,
+    dataehora(hora(17,20),data(24,11,2021)),
+    encomenda(computador,1,75),8,tempo(0,10,0),2008).
+
+caminho(carlos,marlene,bicicleta,
+    dataehora(hora(19,00),data(4,10,2020)),
+    encomenda(roupa,2,15),2,tempo(1,0,0),2009).
+
+caminho(carlos,marle,bicicleta,
+    dataehora(hora(11,15),data(2,12,2021)),
+    encomenda(livros,1,5),20,tempo(0,1,0),2010).
+
+caminho(catia,paulo,mota,
+    dataehora(hora(11,15),data(2,12,2021)),
+    encomenda(livros,18,100),40,tempo(0,0,8),2011).
+
+%verificar se sao clientes ou estafetas
+
+
+ % confirmaçao -- estafeta,cliente,veiculo, data de entrega,tempo demorado ,ranking 
+confirmacao(roger,sandro,bicicleta,
+    dataehora1(data(5,10,2020),hora(17,20)),
+    tempo(0,1,0),5,200).
+
+confirmacao(ilidio,paulo,carro,
+    dataehora1(data(5,10,2020),hora(17,20)),
+    tempo(0,1,0),4,2001).
+
+confirmacao(sheila,sandro,mota,
+    dataehora1(data(3,12,2021),hora(19,00)),
+    tempo(0,10,0),2,2002).
+
+confirmacao(filipe,jessica,carro,
+    dataehora1(data(3,12,2021),hora(19,20)),
+    tempo(0,1,0),5,2003).
+
+%carlossemconf
+confirmacao(carlos,susana,bicicleta,
+    dataehora1(data(2,12,2021),hora(18,30)),
+    tempo(0,8,0),3,2005).
+
+confirmacao(ilidio,ogando,bicicleta,
+    dataehora1(data(4,11,2020),hora(11,50)),
+    tempo(1,0,0),5,2006).
+
+confirmacao(catia,jessica,mota,
+    dataehora1(data(3,12,2021),hora(19,20)),
+    tempo(0,1,0),2,2007).
+
+confirmacao(sheila,marlene,mota,
+    dataehora1(data(3,12,2021),hora(19,00)),
+    tempo(0,10,0),2,2008).
+
+confirmacao(carlos,marlene,bicicleta,
+    dataehora1(data(4,11,2020),hora(11,50)),
+    tempo(1,0,0),3,2010).
+
+confirmacao(carlos,marle,bicicleta,
+    dataehora1(data(3,12,2021),hora(19,20)),
+    tempo(0,1,0),5,2011).
+
+confirmacao(catia,paulo,mota,
+    dataehora1(data(2,12,2021),hora(19,20)),
+    tempo(0,0,8),5,2012).
+
+
 
 
 %QUERY 1 
@@ -95,15 +225,20 @@ veiculo(mota,1).
 % minimoindice([X|T],Index):-list_min([X|T],U),nth0(Index,[X|T],U).
 
 % pode dar erro pode ter varias vees o msm estafeta
-ecologicoEstafeta(Estafeta,Ecologia) :- caminho(Estafeta,_,Veiculo,_),
-                                        veiculo(Veiculo,Ecologia).
+%ecologicoEstafeta(Estafeta,Ecologia) :- caminho(Estafeta,_,Veiculo,_,_,_,_),
+                                    %    veiculo(Veiculo,Ecologia).
 
+%query1_aux(Estafeta,Lista):-findall((Estafeta,Ecologia),ecologicoEstafeta(Estafeta,Ecologia),Lista).
+
+
+%query1_aux2([],_).
+%query1_aux2([Estafeta1|Estafetas],Lista):-query1_aux(Estafeta1,Y0),query1_aux2(Estafetas,Lista).
 
     %findall (Estafeta,min(ecologicoEstafeta(Estafeta,X),Bag).
 
 
-ecologico_aux([],[]).
-ecologico_aux([Estafeta|Estafetas],[(Estafeta,X)|T]):-ecologicoEstafeta(Estafeta,X),ecologico_aux(Estafetas,T).
+%ecologico_aux([],[]).
+%ecologico_aux([Estafeta|Estafetas],[(Estafeta,X)|T]):-ecologicoEstafeta(Estafeta,X),ecologico_aux(Estafetas,T).
 
 
 %list_min([(L,T)|Ls],(U,Min)) :- foldl(num_num_min, Ls, (L,T), (U,Min)).
@@ -113,37 +248,79 @@ ecologico_aux([Estafeta|Estafetas],[(Estafeta,X)|T]):-ecologicoEstafeta(Estafeta
 %myrec([(X,U),(H,Y)|Ls],(Estafeta,Min)):-(U>Y -> myrec([(H,Y)|Ls],(H,Y)); myrec([(X,U)|Ls],(X,U))).
 
 
-query1([],(_,_)).
-query1([Estafeta1],(X,Y)):-ecologico_aux([Estafeta1],[(W,K)|I]),list_min([(W,K)|I],(X,Y)).
+%query1([],(_,_)).
+%query1([Estafeta1],(X,Y)):-ecologico_aux([Estafeta1],[(W,K)|I]),list_min([(W,K)|I],(X,Y)).
 
 
 %Query 2
-query2_aux(Cliente,Encomenda,Estafeta):-caminho(Estafeta,Cliente,_,_,_,_,Encomenda),estafeta(Estafeta).
+%(estafeta, cliente, transporte,data,ranking,o q leva,preço )
+query2_aux(Cliente,Encomenda,Estafeta):-caminho(Estafeta,Cliente,_,_,Encomenda,_,_,_),estafeta(Estafeta).
 query2(Cliente,Encomenda,Lista):-findall(X,query2_aux(Cliente,Encomenda,X),Lista).
 
+
 %Query 3 
-query3_aux(Estafeta,Cliente):-caminho(Estafeta,Cliente,_,_,_,_,_),estafeta(Estafeta).
+%confirmacao(estafeta,cliente,veiculo, data de entrega,tempo demorado ,ranking, n serie)
+query3_aux(Estafeta,Cliente):-confirmacao(Estafeta,Cliente,_,_,_,_,_),estafeta(Estafeta).
 query3(Estafeta,Lista):- findall(X,query3_aux(Estafeta,X),Lista).
 
-%Query 5
-%ou ([Caminho],[(Rua,Qt)])
 
-%Query 10
+%Query 4 
+% caminho(estafeta, cliente, veiculo,data,o q leva,preço, tempo que se quer q demore, n serie)
+% confirmacao(estafeta,cliente,veiculo, data de entrega,tempo demorado ,ranking, n serie)
+
 soma([],0).
 soma([H|T],S):-soma(T,G),S is H+G.
 
-entrega(joao,paulo,5,20,15,5,pao).
-entrega(andre,marco,5,40,15,5,milho).
-entrega(joao,marco,5,30,15,5,milho).
-entrega(joao,marco,5,40,20,5,milho).
+query4_aux(Dia,Preco):- caminho(_,_,_,dataehora(_,Dia),_,Preco,_,_). %assumimos que paga qd faz a encomenda
+query4(Data,Valor):- findall(Custo,query4_aux(Data,Custo),Lista), soma(Lista,Valor).
 
 
-query10_aux(Estafeta,Dia,Peso):- caminho(Estafeta,_,_,Peso,Dia,_,_).
+%Query 5
 
+%query5_aux1(Rua,Cliente):-clienteerua(Cliente,rua(Rua,_)).
+
+%query5_aux2(Rua,List)
+%query5_aux2(Rua,Qt,List) :- findall((Rua,S),query5_aux(Rua,Cliente),Qt).
+
+%query5([Rua],[(Rua,Qt)]):-
+
+
+%query 7 
+% encomenda (estafeta, cliente, veiculo,data,o q leva,preço, tempo que se quer q demore, n serie)
+% confirmacao(estafeta,cliente,veiculo, data de entrega,tempo demorado ,ranking, n serie)
+
+%comp esta a dar mal -> mas basicamente quero comparar duas datas ( a primeira de um dia antes da seg e se estiver entre as datas O= a essa data)
+comp(data(K,Y,Z),data(_,_,_),data(K,Y,Z),O):-O= data(K,Y,Z).
+comp(data(_,_,_),data(U,Y,Z),data(U,Y,Z),O):-O=data(U,Y,Z).
+comp(data(U,Y,Z),data(K,Y,Z),data(X,Y,Z),O):-(X<K),X>U,O= data(X,Y,Z). % mesmo ano e mes mas dias dif 
+comp(data(_,V,Z),data(_,L,Z),data(X,I,Z),O) :-(I<L),I>V, O=data(X,I,Z). % mesmo ano meses dif 
+comp(data(_,V,P),data(_,_,Z),data(X,I,P),O) :-Z\=P ,I>V ,O=data(X,I,P).% mesmo ano que o minimo
+comp(data(_,_,P),data(_,J,Z),data(X,I,Z),O) :-Z\=P,J>I ->O=data(X,I,Z).% mesmo ano q o max
+comp(data(_,_,I),data(_,_,E),data(R,Y,Z),O) :- Z>I ,Z<E, O=data(R,Y,Z). %anos dif 
+
+
+aux(Meio,Data1,Data2,X):-confirmacao(_,_,Meio,dataehora1(Dia,_),_,_,_),comp(Data1,Data2,Dia,X).
+
+query7(Data1,Data2,Veiculo,C):-findall(X,aux(Veiculo,Data1,Data2,X),List),length(List, C).
+
+                                           
+
+%query 8 
+
+query8_aux(Data1,Data2,X):-confirmacao(_,_,_,dataehora1(Dia,_),_,_,_),comp(Data1,Data2,Dia,X).
+query8(Data1,Data2,List):-findall(X,query8_aux(Data1,Data2,X),List).%length(List, C).
+
+
+
+%Query 10 
+
+% encomenda (estafeta, cliente, veiculo,data,o q leva,preço, tempo que se quer q demore, n serie)
+% confirmacao(estafeta,cliente,veiculo, data de entrega,tempo demorado ,ranking, n serie)
+
+query10_aux(Estafeta,Dia,Peso):- confirmacao(Estafeta,Cliente,_,dataehora1(Dia,_),_,_,Ns),caminho(Estafeta,Cliente,_,_,encomenda(_,Peso,_),_,_,Ns).
 query10(Estafeta,Dia,PesoTotal):-findall(Peso,query10_aux(Estafeta,Dia,Peso),Lista),soma(Lista,PesoTotal).
 
-                    
-%query10(Estafeta,Dia,Total):- query10_aux(Estafeta,Dia,W),soma(W,Total).
+        
 
 
 
