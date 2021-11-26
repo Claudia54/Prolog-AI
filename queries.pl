@@ -283,21 +283,26 @@ query4(Data,Valor):- findall(Custo,query4_aux(Data,Custo),Lista), soma(Lista,Val
 %query5_aux2(Rua,Qt,List) :- findall((Rua,S),query5_aux(Rua,Cliente),Qt).
 
 %query5([Rua],[(Rua,Qt)]):-
-
+%Query 6
 
 %query 7 
 % encomenda (estafeta, cliente, veiculo,data,o q leva,preço, tempo que se quer q demore, n serie)
 % confirmacao(estafeta,cliente,veiculo, data de entrega,tempo demorado ,ranking, n serie)
 
 %comp esta a dar mal -> mas basicamente quero comparar duas datas ( a primeira de um dia antes da seg e se estiver entre as datas O= a essa data)
-comp(data(K,Y,Z),data(_,_,_),data(K,Y,Z),O):-O= data(K,Y,Z).
-comp(data(_,_,_),data(U,Y,Z),data(U,Y,Z),O):-O=data(U,Y,Z).
-comp(data(U,Y,Z),data(K,Y,Z),data(X,Y,Z),O):-(X<K),X>U,O= data(X,Y,Z). % mesmo ano e mes mas dias dif 
-comp(data(_,V,Z),data(_,L,Z),data(X,I,Z),O) :-(I<L),I>V, O=data(X,I,Z). % mesmo ano meses dif 
-comp(data(_,V,P),data(_,_,Z),data(X,I,P),O) :-Z\=P ,I>V ,O=data(X,I,P).% mesmo ano que o minimo
-comp(data(_,_,P),data(_,J,Z),data(X,I,Z),O) :-Z\=P,J>I ->O=data(X,I,Z).% mesmo ano q o max
-comp(data(_,_,I),data(_,_,E),data(R,Y,Z),O) :- Z>I ,Z<E, O=data(R,Y,Z). %anos dif 
+% comp(data(K,Y,Z),data(_,_,_),data(K,Y,Z),O):-O= data(K,Y,Z).
+% comp(data(_,_,_),data(U,Y,Z),data(U,Y,Z),O):-O=data(U,Y,Z).
+% comp(data(U,Y,Z),data(K,Y,Z),data(X,Y,Z),O):-(X<K),X>U,O= data(X,Y,Z). % mesmo ano e mes mas dias dif 
+% comp(data(_,V,Z),data(_,L,Z),data(X,I,Z),O) :-(I<L),I>V, O=data(X,I,Z). % mesmo ano meses dif 
+% comp(data(_,V,P),data(_,_,Z),data(X,I,P),O) :-Z\=P ,I>V ,O=data(X,I,P).% mesmo ano que o minimo
+% comp(data(_,_,P),data(_,J,Z),data(X,I,Z),O) :-Z\=P,J>I ->O=data(X,I,Z).% mesmo ano q o max
+% comp(data(_,_,I),data(_,_,E),data(R,Y,Z),O) :- Z>I ,Z<E, O=data(R,Y,Z). %anos dif 
 
+
+convertDatatodays(data(X,Y,Z),P):- P is (Z*12+Y)*30+X.
+
+comp(data(X,Y,I),data(Z,G,E),data(K,P,F),O):- convertDatatodays(data(X,Y,I),T),convertDatatodays(data(K,P,F),Y0), T=<Y0,
+                                              convertDatatodays(data(Z,G,E),Y1), Y0=<Y1, O=data(K,P,F). 
 
 aux(Meio,Data1,Data2,X):-confirmacao(_,_,Meio,dataehora1(Dia,_),_,_,_),comp(Data1,Data2,Dia,X).
 
@@ -308,9 +313,9 @@ query7(Data1,Data2,Veiculo,C):-findall(X,aux(Veiculo,Data1,Data2,X),List),length
 %query 8 
 
 query8_aux(Data1,Data2,X):-confirmacao(_,_,_,dataehora1(Dia,_),_,_,_),comp(Data1,Data2,Dia,X).
-query8(Data1,Data2,List):-findall(X,query8_aux(Data1,Data2,X),List).%length(List, C).
+query8(Data1,Data2,C):-findall(X,query8_aux(Data1,Data2,X),List),length(List, C).
 
-
+%Query 9
 
 %Query 10 
 
