@@ -175,6 +175,14 @@ confirmacao(catia,paulo,mota,
     tempo(0,0,8),5,2012).
 
 
+% 1- ver se tds os caminhos tem confirmacao 
+% 2- qts entregas fez Um estafeta numa hora
+
+
+
+%Query text 
+% querytesteaux (Y,X):- caminho(_,_,_,_,_,_,_,Y), confirmacao(_,_,_,_,_,_,Y).
+% queryteste(Y,X):- findall(Y,querytesteaux(_,Y),List),length(List,X).
 
 
 %QUERY 1 
@@ -190,8 +198,8 @@ confirmacao(catia,paulo,mota,
 %ecoestafeta(Estafeta,Nivel)                                                
 %QUERY 1 
 % calcular a ecologia de um estafeta 
-% ecologicoEstafeta(Estafeta,Ecologia) :- caminho(Estafeta,_,Veiculo,_),
-%                                         veiculo(Veiculo,Ecologia).
+ecologicoEstafeta(Estafeta,Ecologia) :- caminho(Estafeta,_,Veiculo,_),
+                                        veiculo(Veiculo,Ecologia).
 
 %%findall (Estafeta,min(ecologicoEstafeta(Estafeta,X),Bag).
 
@@ -254,7 +262,7 @@ confirmacao(catia,paulo,mota,
 
 %Query 2
 %(estafeta, cliente, transporte,data,ranking,o q leva,preço )
-query2_aux(Cliente,Encomenda,Estafeta):-caminho(Estafeta,Cliente,_,_,Encomenda,_,_,_),estafeta(Estafeta).
+query2_aux(Cliente,Encomenda,Estafeta):-caminho(Estafeta,Cliente,_,_,Encomenda,_,_,Y),confirmacao(_,_,_,_,_,_,Y),estafeta(Estafeta).
 query2(Cliente,Encomenda,Lista):-findall(X,query2_aux(Cliente,Encomenda,X),Lista).
 
 
@@ -277,13 +285,34 @@ query4(Data,Valor):- findall(Custo,query4_aux(Data,Custo),Lista), soma(Lista,Val
 
 %Query 5
 
-%query5_aux1(Rua,Cliente):-clienteerua(Cliente,rua(Rua,_)).
+query5_aux1(Cliente,Rua) :- confirmacao(Cliente,_,_,_,_,_,_),clienteerua(Cliente,rua(Rua,_)).
+
 
 %query5_aux2(Rua,List)
-%query5_aux2(Rua,Qt,List) :- findall((Rua,S),query5_aux(Rua,Cliente),Qt).
+query5_aux2(Rua,List) :- findall(Rua ,query5_aux1(_,Rua),List).
 
-%query5([Rua],[(Rua,Qt)]):-
+procura(Rua1,[],(Rua1,0)).
+procura(Rua1 ,[Rua1|Ruas],(Rua1,X)) :- procura(Rua1,Ruas,(Rua1,X0)), X is X0+1.
+procura(Rua1 ,[Rua3|Ruas],(Rua1,X)) :- Rua1\=Rua3,procura(Rua1,Ruas,(Rua1,X)).
+
+query_comp (_ ,[]).
+query_comp([Rua|Ruas],[(_,Y)|T]):-procura(Rua,Ruas,(Rua,Y)),query_comp(Ruas,T).
+
+
+%query5(Rua,X):- aggregate(query5_aux2(_,Rua),Rua, max).
+
+
 %Query 6
+
+query6_contador(Estafeta,Contador) :-findall((Estafeta),confirmacao(Estafeta,_,_,_,_,_,_),List),length(List,Contador).
+
+%somar as avaliaçoes dadas ao estafeta
+query6_avalia(Estafeta,Avaliacao) :- confirmacao(Estafeta,_,_,_,_,Avaliacao,_).
+
+query6_soma(Estafeta,Total) :- findall(Avaliacao,query6_avalia(Estafeta,Avaliacao), Lista), soma(Lista,Total).
+
+%fazer a media 
+query6_media(Estafeta, Resultado) :- query6_soma(Estafeta,Total),query6_contador(Estafeta,Contador), Resultado is Total/Contador.
 
 %query 7 
 % encomenda (estafeta, cliente, veiculo,data,o q leva,preço, tempo que se quer q demore, n serie)
@@ -317,6 +346,9 @@ query8(Data1,Data2,C):-findall(X,query8_aux(Data1,Data2,X),List),length(List, C)
 
 %Query 9
 
+query9(Data1,Data2,(X,Y)):- query8(Data1,Data2,X),findall(I, caminho(_,_,_,_,_,_,_,I),List),length(List, C), Y is C-X.
+
+
 %Query 10 
 
 % encomenda (estafeta, cliente, veiculo,data,o q leva,preço, tempo que se quer q demore, n serie)
@@ -328,7 +360,9 @@ query10(Estafeta,Dia,PesoTotal):-findall(Peso,query10_aux(Estafeta,Dia,Peso),Lis
         
 
 
+% determinar quantas entregas ocorreram numa dada hora
 
+query12(Hora,X):- findall(Hora,confirmacao(_,_,_,dataehora1(_,Hora),_,_,_),Lista),length(Lista,X).
 
 
 

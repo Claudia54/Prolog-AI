@@ -4,39 +4,40 @@
 
 - [ ] identificar o estafeta que utilizou mais vezes um meio de transporte mais ecológico; (André)
 
-<<<<<<< HEAD
-- [certo] identificar que estafetas entregaram determinada(s) encomenda(s) a um determinado cliente; (Mendes)
-=======
-- [ ] identificar que estafetas entregaram determinada(s) encomenda(s) a um determinado cliente; (Mendes)
->>>>>>> b8d78dedc19d1671e1f034a0dfd25c278ad9021b
+- [X] identificar que estafetas entregaram determinada(s) encomenda(s) a um determinado cliente; (Mendes)
 
-- [ ] identificar os clientes servidos por um determinado estafeta; (Ogando)
+- [X] identificar os clientes servidos por um determinado estafeta; (Ogando)
 
-- [ ] calcular o valor faturado pela Green Distribution num determinado dia; (Ogando)
+- [X] calcular o valor faturado pela Green Distribution num determinado dia; (Ogando)
 
 - [ ] identificar quais as zonas (e.g., rua ou freguesia) com maior volume de
 entregas por parte da Green Distribution; (Claudia)
 
-- [ ] calcular a classificação média de satisfação de cliente para um determinado
+- [X] calcular a classificação média de satisfação de cliente para um determinado
 estafeta; (Claudia)
 
-- [ ] identificar o número total de entregas pelos diferentes meios de transporte,
+- [X] identificar o número total de entregas pelos diferentes meios de transporte,
 num determinado intervalo de tempo; (Claudia)
 
-- [ ] identificar o número total de entregas pelos estafetas, num determinado
+- [X] identificar o número total de entregas pelos estafetas, num determinado
 intervalo de tempo;(Ogando)
 
-- [ ] calcular o número de encomendas entregues e não entregues pela Green
+- [X] calcular o número de encomendas entregues e não entregues pela Green
 Distribution, num determinado período de tempo; (André)
 
-- [ ] calcular o peso total transportado por estafeta num determinado dia. (Mendes)
+- [X] calcular o peso total transportado por estafeta num determinado dia. (Mendes)
 
 ------EXTRA 
 
 - [ ] calcular o estafeta com mais viagens; (Andre)
 
-- [ ] calcular peso medio que cada estafeta num determinado tempo; (Mendes)
+- [X] determinar quantas entregas ocorreram numa dada hora
 
+- [ ] quantas entregas foram feitas no tempo certo
+
+- [ ] quais é que nao foram entregues mas foram encomendadas
+
+- [ ] o cliente poder avaliar o estafeta, acrescentado mais um dado para o ranking
 
 ## NOTAS
 
