@@ -55,13 +55,13 @@ query3_aux(Estafeta,Cliente):-confirmacao(Estafeta,Cliente,_,_,_,_,_),estafeta(E
 query3(Estafeta,Lista):- findall(X,query3_aux(Estafeta,X),Lista).
 
 
-%Query 4 
+%QUERY 4 
 %Dado um dia identifica o valor faturado pela empresa Green Distributions
 query4_aux(Dia,Preco):- caminho(_,_,_,dataehora(_,Dia),_,Preco,_,_). %assumimos que paga qd faz a encomenda
 query4(Data,Valor):- findall(Custo,query4_aux(Data,Custo),Lista), soma(Lista,Valor).
 
 
-%Query 5
+%QUERY 5
 %compara pela ordem decrescente 
 compare_by_second2(<, (A, B), (C, D)) :-
     (   B @< D
@@ -78,8 +78,6 @@ compare_by_second2(>, (A, B), (C, D)) :-
 %Identifica todas as ruas existentes  
 query5_aux2(List):- findall(Rua,(confirmacao(_,Cliente,_,_,_,_,_),clienteerua(Cliente,rua(Rua,_))),List).
 
-
-
 % procura uma certa rua numa lista de ruas e verfica se se encontra um certo número de vezes 
 procura(Rua1,[],(Rua1,0)).
 procura(Rua1 ,[Rua1|Ruas],(Rua1,X)) :- procura(Rua1,Ruas,(Rua1,X0)), X is X0+1.
@@ -89,7 +87,6 @@ procura(Rua1 ,[Rua3|Ruas],(Rua1,X)) :- Rua1\=Rua3,procura(Rua1,Ruas,(Rua1,X)).
 query_comp([],[]).
 query_comp([Rua|Ruas],[(X,Y)|T]):-procura(Rua,Ruas,P),P=(X,Y), query_comp(Ruas,T).
 
-
 %dada uma lista de ruas organiza por ordem decrescente 
 query5_aux1(Ruas,A) :- query_comp(Ruas,P),predsort(compare_by_second2,P,A),write(A).
 
@@ -98,7 +95,7 @@ query5(Rua):-query5_aux2(List),query5_aux1(List,[(X,_)|_]),Rua =X.
 
 
 
-%Query 6
+%QUERY 6
 % quantas entregas fez o estafeta
 query6_contador(Estafeta,Contador) :-findall((Estafeta),confirmacao(Estafeta,_,_,_,_,_,_),List),length(List,Contador).
 
@@ -110,8 +107,9 @@ query6_soma(Estafeta,Total) :- findall(Avaliacao,query6_avalia(Estafeta,Avaliaca
 %fazer a media 
 query6_media(Estafeta, Resultado) :- query6_soma(Estafeta,Total),query6_contador(Estafeta,Contador), Resultado is Total/Contador.
 
-%query 7 
 
+
+%QUERY 7 
 % comp(data(K,Y,Z),data(_,_,_),data(K,Y,Z),O):-O= data(K,Y,Z).
 % comp(data(_,_,_),data(U,Y,Z),data(U,Y,Z),O):-O=data(U,Y,Z).
 % comp(data(U,Y,Z),data(K,Y,Z),data(X,Y,Z),O):-(X<K),X>U,O= data(X,Y,Z). % mesmo ano e mes mas dias dif 
@@ -134,26 +132,48 @@ query7(Data1,Data2,Veiculo,C):-findall(X,aux(Veiculo,Data1,Data2,X),List),length
 
                                            
 
-%query 8
+%QUERY 8
 %verifca se foi entregue num certo intervalo de tempo
 query8_aux(Data1,Data2,X):-confirmacao(_,_,_,dataehora1(Dia,_),_,_,_),comp(Data1,Data2,Dia,X).
 query8(Data1,Data2,C):-findall(X,query8_aux(Data1,Data2,X),List),length(List, C).
 
 
-%Query 9
+
+%QUERY 9
 %identifica quais as entregas que foram entregues e não foram num certo intervalo de tempo retirando as que foram ás entregas totais.
 query9(Data1,Data2,(X,Y)):- query8(Data1,Data2,X),findall(I,caminho(_,_,_,_,_,_,_,I),List),length(List, C), Y is C-X.
 
 
-%Query 10 
+
+%QUERY 10 
 %Dado um estafeta e um certo dia identifica o peso total por ele transportado
 query10_aux(Estafeta,Dia,Peso):- confirmacao(Estafeta,Cliente,_,dataehora1(Dia,_),_,_,Ns),caminho(Estafeta,Cliente,_,_,encomenda(_,Peso,_),_,_,Ns).
 query10(Estafeta,Dia,PesoTotal):-findall(Peso,query10_aux(Estafeta,Dia,Peso),Lista),soma(Lista,PesoTotal).
 
-        
+
+
+%QUERY 12(EXTRA)
 %determinar quantas entregas ocorreram numa dada hora
 query12(Hora,X):- findall(Hora,confirmacao(_,_,_,dataehora1(_,Hora),_,_,_),Lista),length(Lista,X).
 
+
+
+%QUERY13(EXTRA)
+%Entregas feitas a tempo 
+%converte tempo para horas 
+converteTempoHoras(tempo(M,D,H),X):-X is H+(D*24)+(M*30*24).
+%compara o tempo
+compTempos(tempo(M1,D1,H1),tempo(M2,D2,H2)):-converteTempoHoras(tempo(M1,D1,H1),X),
+                                   converteTempoHoras(tempo(M2,D2,H2),Y),X=<Y.
+
+query13_aux(Serie):- confirmacao(Estafeta,Cliente,Veiculo,_,Tempo,_,Serie),
+                        caminho(Estafeta,Cliente,Veiculo,_,_,_,TempoS,Serie),compTempos(Tempo,TempoS).
+
+query13(Lista):-findall(Serie,query13_aux(Serie),Lista).
+
+
+
+%QUERY 14(EXTRA)
 %Invariante estrutural
 :- op( 900,xfy,'::' ).
 
@@ -172,24 +192,6 @@ validatempo(tempo(X,Y,Z)).
     integer(Preco),
     validatempo(Tempo),
     validaSerie(NS)).
-
-
-
-%Entregas feitas a tempo 
-%converte tempo para horas 
-converteTempoHoras(tempo(M,D,H),X):-X is H+(D*24)+(M*30*24).
-%compara o tempo
-compTempos(tempo(M1,D1,H1),tempo(M2,D2,H2)):-converteTempoHoras(tempo(M1,D1,H1),X),
-                                   converteTempoHoras(tempo(M2,D2,H2),Y),X=<Y.
-
-
-query13_aux(Serie):- confirmacao(Estafeta,Cliente,Veiculo,_,Tempo,_,Serie),
-                        caminho(Estafeta,Cliente,Veiculo,_,_,_,TempoS,Serie),compTempos(Tempo,TempoS).
-
-
-query13(Lista):-findall(Serie,query13_aux(Serie),Lista).
-
-
 
 
 
