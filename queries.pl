@@ -370,15 +370,18 @@ validatempo(tempo(X,Y,Z)).
 
 % Entregas feitas a tempo 
 
-converteTempoHoras(tempo(M,D,H),X):-X is H+(D*24)+(M*30*24).
+converteTempoHoras(tempo(M,D,H),X):-
+    X is H+(D*24)+(M*30*24).
 
-compTempos(tempo(M1,D1,H1),tempo(M2,D2,H2)):-converteTempoHoras(tempo(M1,D1,H1),X),
-                                   converteTempoHoras(tempo(M2,D2,H2),Y),X=<Y.
+compTempos(tempo(M1,D1,H1),tempo(M2,D2,H2)):-
+    converteTempoHoras(tempo(M1,D1,H1),X),
+    converteTempoHoras(tempo(M2,D2,H2),Y),
+    X=<Y.
 
-
-query13_aux(Serie):- confirmacao(Estafeta,Cliente,Veiculo,_,Tempo,_,Serie),
-                        caminho(Estafeta,Cliente,Veiculo,_,_,_,TempoS,Serie),compTempos(Tempo,TempoS).
-
+query13_aux(Serie):-
+    confirmacao(Estafeta,Cliente,Veiculo,_,Tempo,_,Serie),
+    caminho(Estafeta,Cliente,Veiculo,_,_,_,TempoS,Serie),
+    compTempos(Tempo,TempoS).
 
 query13(Lista):-findall(Serie,query13_aux(Serie),Lista).
 
