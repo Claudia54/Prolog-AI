@@ -1,5 +1,5 @@
 % Include Base de Dados 
-:-include('basedados.pl').
+:- include('basedados.pl').
 
 % Query text -> verifica quantos caminhos tem confirmação 
 queryteste(X) :- 
@@ -11,51 +11,42 @@ queryteste(X) :-
     length(List,X).
 
 
-% QUERY 1 
-% soma os elementos de uma lista 
-soma([],0).
-soma([H|T],S) :-
-    soma(T,G),S is H+G.
-
-% Compara o segundo elemento dos tuplos -> organiza de forma crescente 
+% QUERY 1
 compare_by_second(<, (A, B), (C, D)) :-
-    (   B @< D
+    (   B @> D
     ;   B == D,
-        A @< C ).
+        A @> C ).
 compare_by_second(=, (A, B), (C, D)) :-
     A == C,
     B == D.
 compare_by_second(>, (A, B), (C, D)) :-
-    (   B @> D
+    (   B @< D
     ;   B == D,
-        A @> C ).
+        A @< C ).
 
-% Calcula a ecologia de um estafeta 
-ecologicoq1(Estafeta,Ecologia) :-
-    confirmacao(Estafeta,_,Veiculo,_,_,_,_),
-    veiculo(Veiculo,Ecologia).
-
-
-% Identifica a ecologia de um determinado estafeta somando a ecologia de todos os transportes que utilizou
-ecologia(Estafeta,Numb) :-
-     findall(Ecologia,ecologicoq1(Estafeta,Ecologia),Lista),
-     soma(Lista,Numb).
-
-% Predicado que verifica se se trata de uma lista com o estafeta e a ecologia total de cada um 
-ecologiaf(Lista) :-
+query1_aux(Estafeta,N) :-
     findall(
-        (Estafeta,Numb),
-        (confirmacao(Estafeta,_,_,_,_,_,_), ecologia(Estafeta,Numb)),
-        Lista).
+        Serie,
+        (
+            confirmacao(Estafeta,_,Veiculo,_,_,_,Serie),
+            veiculo(Veiculo,VeiculoV),
+            VeiculoV==0
+        ),
+        Lista
+    ),
+    length(Lista,N).
 
-% Organiza a lista de forma crescente
-query1_aux(List) :-
-    ecologiaf(Lista),predsort(compare_by_second,Lista,List).
+query1_tuple([],[]).
+query1_tuple([Estafeta|Estafetas],[(X,Y)|T]) :-
+    query1_aux(Estafeta,N),
+    X = Estafeta,
+    Y = N,
+    query1_tuple(Estafetas,T).
 
-% Identifica o estafeta mais ecologico, o que esta na cabeca da lista ( se forem todos ecologicos devolve apenas o priemiro da lista)
 query1(X) :-
-    query1_aux([(X,_)|_]).
-
+    findall(Estafeta,estafeta(Estafeta),Lista),
+    query1_tuple(Lista,ListaV),
+    predsort(compare_by_second,ListaV,[(X,_)|_]).
 
 % QUERY 2
 % Dado um cliente e uma encomenda identifica o(s) estafeta(s) que realizaram esse percurso 
@@ -96,8 +87,14 @@ compare_by_second2(>, (A, B), (C, D)) :-
 
 % Identifica todas as ruas existentes  
 query5_aux2(List) :-
-    findall(Rua,(confirmacao(_,Cliente,_,_,_,_,_),
-    clienteerua(Cliente,rua(Rua,_))),List).
+    findall(
+        Rua,
+        (
+            confirmacao(_,Cliente,_,_,_,_,_),
+            clienteerua(Cliente,rua(Rua,_))
+        ),
+        List
+    ).
 
 % Procura uma certa rua numa lista de ruas e verfica se se encontra um certo número de vezes 
 procura(Rua1,[],(Rua1,0)).
@@ -128,18 +125,19 @@ query5(Rua) :-
 % QUERY 6
 % Quantas entregas fez o estafeta
 query6_contador(Estafeta,Contador) :-
-    findall((Estafeta),confirmacao(Estafeta,_,_,_,_,_,_),List),length(List,Contador).
+    findall(Estafeta,confirmacao(Estafeta,_,_,_,_,_,_),List),
+    length(List,Contador).
 
 % Somar as avaliaçoes dadas ao estafeta
 query6_avalia(Estafeta,Avaliacao) :-
     confirmacao(Estafeta,_,_,_,_,Avaliacao,_).
 
 query6_soma(Estafeta,Total) :-
-    findall(Avaliacao,query6_avalia(Estafeta,Avaliacao), Lista),
+    findall(Avaliacao,query6_avalia(Estafeta,Avaliacao),Lista),
     soma(Lista,Total).
 
 % Fazer a media 
-query6_media(Estafeta, Resultado) :-
+query6_media(Estafeta,Resultado) :-
     query6_soma(Estafeta,Total),
     query6_contador(Estafeta,Contador),
     Resultado is Total/Contador.
@@ -237,14 +235,14 @@ validaData(dataehora(hora(U,C),data(X,Y,_))) :-
     0 =< U, U =< 23,
     0 =< C, C =< 59.
 
-validaencomenda(encomenda(X,Y,Z)) :-
+validaEncomenda(encomenda(X,Y,Z)) :-
     encomenda(X,Y,Z).
 
 validaSerie(NS) :-
     findall(NS,caminho(_,_,_,_,_,_,_,NS),List),
-    length(List,0).
+    length(List,1).
 
-validatempo(tempo(X,Y,Z)) :-
+validaTempo(tempo(X,Y,Z)) :-
     tempo(X,Y,Z).
 
 +caminho(Estafeta,Cliente,Veiculo,DataHora,Encomenda,Preco,Tempo,NS)::(
@@ -256,3 +254,35 @@ validatempo(tempo(X,Y,Z)) :-
     integer(Preco),
     validatempo(Tempo),
     validaSerie(NS)).
+
+% QUERY 14 (EXTRA)
+soma([],0).
+soma([H|T],S) :-
+    soma(T,G),S is H+G.
+
+% Calcula a ecologia de um estafeta 
+ecologicoq1(Estafeta,Ecologia) :-
+    confirmacao(Estafeta,_,Veiculo,_,_,_,_),
+    veiculo(Veiculo,Ecologia).
+
+
+% Identifica a ecologia de um determinado estafeta somando a ecologia de todos os transportes que utilizou
+ecologia(Estafeta,Numb) :-
+     findall(Ecologia,ecologicoq1(Estafeta,Ecologia),Lista),
+     soma(Lista,Numb).
+
+% Predicado que verifica se se trata de uma lista com o estafeta e a ecologia total de cada um 
+ecologiaf(Lista) :-
+    findall(
+        (Estafeta,Numb),
+        (confirmacao(Estafeta,_,_,_,_,_,_), ecologia(Estafeta,Numb)),
+        Lista).
+
+% Organiza a lista de forma crescente
+query14_aux(List) :-
+    ecologiaf(Lista),
+    predsort(compare_by_second2,Lista,List).
+
+% Identifica o estafeta mais ecologico, o que esta na cabeca da lista ( se forem todos ecologicos devolve apenas o priemiro da lista)
+query14(X) :-
+    query14_aux([(X,_)|_]).
