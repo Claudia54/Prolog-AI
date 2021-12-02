@@ -118,7 +118,7 @@ caminho(carlos,marlene,bicicleta,
     dataehora(hora(19,00),data(4,10,2020)),
     encomenda(roupa,2,15),2,tempo(1,0,0),2010).
 
-caminho(carlos,marle,bicicleta,
+caminho(carlos,marlene,bicicleta,
     dataehora(hora(11,15),data(2,12,2021)),
     encomenda(livros,1,5),20,tempo(0,1,0),2011).
 

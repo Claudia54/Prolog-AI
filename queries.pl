@@ -112,8 +112,7 @@ query_comp([Rua|Ruas],[(X,Y)|T]) :-
 % Dada uma lista de ruas organiza por ordem decrescente 
 query5_aux1(Ruas,A) :-
     query_comp(Ruas,P),
-    predsort(compare_by_second2,P,A),
-    write(A).
+    predsort(compare_by_second2,P,A).
 
 % Apenas a cabeça da lista é a rua mais frequentada
 query5(Rua) :-
@@ -223,37 +222,16 @@ query12(Lista) :-
 
 
 % QUERY 13(EXTRA)
-% Invariante estrutural
+% Invariante 
 :- op(900,xfy,'::' ).
 
-validaVeiculo(Veiculo) :-
-    veiculo(Veiculo,_).
+%verifica inserção-> apenas aceita se existir a encomenda
++caminho(_,_,_, _, encomenda(X,Z,Y), _,_,_) ::
+(findall((X,Z,Y), encomenda(X,Z,Y), S), length(S, N) , N > 0).
 
-validaData(dataehora(hora(U,C),data(X,Y,_))) :-
-    0 < X, X =< 31,
-    0 < Y, Y =< 12,
-    0 =< U, U =< 23,
-    0 =< C, C =< 59.
-
-validaEncomenda(encomenda(X,Y,Z)) :-
-    encomenda(X,Y,Z).
-
-validaSerie(NS) :-
-    findall(NS,caminho(_,_,_,_,_,_,_,NS),List),
-    length(List,1).
-
-validaTempo(tempo(X,Y,Z)) :-
-    tempo(X,Y,Z).
-
-+caminho(Estafeta,Cliente,Veiculo,DataHora,Encomenda,Preco,Tempo,NS)::(
-    atom(Estafeta),
-    atom(Cliente),
-    validaveiculo(Veiculo),
-    validaData(DataHora),
-    validaencomenda(Encomenda),
-    integer(Preco),
-    validatempo(Tempo),
-    validaSerie(NS)).
+%verifica inserção --> não aceita se já existir numero de série
+%+caminho(Estafeta, Cliente, Veiculo, DataHora,Encomenda,Preco,Tempo, NS) ::
+% (findall((NS), caminho(_,_,_,_,_,_,_,NS),S), length(S, N) , N == 0).
 
 % QUERY 14 (EXTRA)
 soma([],0).
@@ -286,3 +264,4 @@ query14_aux(List) :-
 % Identifica o estafeta mais ecologico, o que esta na cabeca da lista ( se forem todos ecologicos devolve apenas o priemiro da lista)
 query14(X) :-
     query14_aux([(X,_)|_]).
+
