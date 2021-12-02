@@ -351,19 +351,38 @@ query12(Hora,X):- findall(Hora,confirmacao(_,_,_,dataehora1(_,Hora),_,_,_),Lista
 */
 
 validaVeiculo(Veiculo):-veiculo(Veiculo,_).
-validaData(Data):-
+validaData(dataehora(hora(U,C),data(X,Y,_))):-X=<31,X>0,Y>0,Y=<12,U=<23,U>=0,C=<59,C>=0.
+validaencomenda(encomenda(X,Y,Z)).
+validaSerie(NS):-findall(NS,caminho(_,_,_,_,_,_,_,NS),List),length(List,0).
+validatempo(tempo(X,Y,Z)).
 
-+inserirCaminho(Estafeta,Cliente,Veiculo,DataeHora,Encomenda,Preco,Tempo,NS)::(
++caminho(Estafeta,Cliente,Veiculo,DataHora,Encomenda,Preco,Tempo,NS)::(
     atom(Estafeta),
     atom(Cliente),
     validaveiculo(Veiculo),
-    validaData(DataeHora),
+    validaData(Data,Hora),
     validaencomenda(Encomenda),
     integer(Preco),
     validatempo(Tempo),
     validaSerie(NS)).
 
-+inserirAva(Cliente,Estafeta,Avaliacao) :: confirmacao(Estafeta,Cliente,_,_,_,_,_),length(S,N), N==1).
+
+
+% Entregas feitas a tempo 
+
+converteTempoHoras(tempo(M,D,H),X):-X is H+(D*24)+(M*30*24).
+
+compTempos(tempo(M1,D1,H1),tempo(M2,D2,H2)):-converteTempoHoras(tempo(M1,D1,H1),X),
+                                   converteTempoHoras(tempo(M2,D2,H2),Y),X=<Y.
+
+
+query13_aux(Serie):- confirmacao(Estafeta,Cliente,Veiculo,_,Tempo,_,Serie),
+                        caminho(Estafeta,Cliente,Veiculo,_,_,_,TempoS,Serie),compTempos(Tempo,TempoS).
+
+
+query13(Lista):-findall(Serie,query13_aux(Serie),Lista).
+
+
 
 
 
