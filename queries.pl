@@ -13,6 +13,7 @@ clienteerua(paulo,rua(da_Torre,bagunte)).
 clienteerua(marlene,rua(castelo_do_Norte,nogueiro)).
 clienteerua(susana,rua(afonso_de_Jeronimo,prado)).
 clienteerua(jessica,rua(familia_Real, greenville)).
+%clienteerua(sandro,rua(familia_Real, esposende)).
 clienteerua(sandro,rua(torta, esposende)).
 
 %encomenda ( o que leva ,peso,volume(cm) )
@@ -115,21 +116,21 @@ caminho(sheila,marlene,mota,
 
 caminho(carlos,marlene,bicicleta,
     dataehora(hora(19,00),data(4,10,2020)),
-    encomenda(roupa,2,15),2,tempo(1,0,0),2009).
+    encomenda(roupa,2,15),2,tempo(1,0,0),2010).
 
 caminho(carlos,marle,bicicleta,
     dataehora(hora(11,15),data(2,12,2021)),
-    encomenda(livros,1,5),20,tempo(0,1,0),2010).
+    encomenda(livros,1,5),20,tempo(0,1,0),2011).
 
 caminho(catia,paulo,mota,
     dataehora(hora(11,15),data(2,12,2021)),
-    encomenda(livros,18,100),40,tempo(0,0,8),2011).
+    encomenda(livros,18,100),40,tempo(0,0,8),2012).
 
 %verificar se sao clientes ou estafetas
 
 
  % confirmaçao -- estafeta,cliente,veiculo, data de entrega,tempo demorado ,ranking 
-confirmacao(roger,sandro,bicicleta,
+confirmacao(roger,sandro,mota,
     dataehora1(data(5,10,2020),hora(17,20)),
     tempo(0,1,0),5,200).
 
@@ -181,83 +182,47 @@ confirmacao(catia,paulo,mota,
 
 
 %Query text 
-% querytesteaux (Y,X):- caminho(_,_,_,_,_,_,_,Y), confirmacao(_,_,_,_,_,_,Y).
-% queryteste(Y,X):- findall(Y,querytesteaux(_,Y),List),length(List,X).
+queryteste(X):- findall(Y,(caminho(_,_,_,_,_,_,_,Y),confirmacao(_,_,_,_,_,_,Y)),List),length(List,X).
 
 
 %QUERY 1 
-%estafeta_eco_aux([(X,_,_,_)|Cs],Y,U) :- X \= Y ,estafeta_eco_aux(Cs,Y,U).
-%stafeta_eco_aux(_,0,_).
-% estafeta_eco_aux([],_,_,0).
-% estafeta_eco_aux([(X,_,_,_)|Cs],Y,U) :- X \= Y ,estafeta_eco_aux(Cs,Y,U).
-% estafeta_eco_aux([(A,_,C,_)|Caminhos],Veiculo,Estafeta1,Y) :-
-%          (estafeta(A)) is Estafeta1,C is Veiculo,Y is Y1+1.
-        %(caminho(Estafeta1,_,Veiculo,_) -> Y is Y1+1 ; Y ).
-%estafeta_eco_aux(Estafeta1,Y1,Veiculo),Y is Y1+1.
 
-%ecoestafeta(Estafeta,Nivel)                                                
-%QUERY 1 
+soma([],0).
+soma([H|T],S):-soma(T,G),S is H+G.
+
+
+compare_by_second(<, (A, B), (C, D)) :-
+    (   B @< D
+    ;   B == D,
+        A @< C ).
+compare_by_second(=, (A, B), (C, D)) :-
+    A == C,
+    B == D.
+compare_by_second(>, (A, B), (C, D)) :-
+    (   B @> D
+    ;   B == D,
+        A @> C ).
+
+
 % calcular a ecologia de um estafeta 
-ecologicoEstafeta(Estafeta,Ecologia) :- caminho(Estafeta,_,Veiculo,_),
+ecologicoEstafeta(Estafeta,Ecologia) :- confirmacao(Estafeta,_,Veiculo,_,_,_,_),
                                         veiculo(Veiculo,Ecologia).
 
-%%findall (Estafeta,min(ecologicoEstafeta(Estafeta,X),Bag).
-
-% ecologico_aux([],[]).
-% ecologico_aux([Estafeta|Estafetas],[(Estafeta,X)|T]):-ecologicoEstafeta(Estafeta,X),ecologico_aux(Estafetas,T).
-
-%ecologico_aux([],[]).
-%ecologico_aux([Estafeta|Estafetas],[(Estaf,X)|T]):-ecologicoEstafeta(Estafeta,X),ecologico_aux(Estafetas,T).
-
-% list_min([L|Ls], Min) :- foldl(num_num_min, Ls, L, Min).
-% num_num_min(X, Y, Min) :- Min #= min(X, Y).
-
-% %ecologico()
-% %maispeq([],_).
-%maispeq([X],Index):-nth0(Index,[X|T],list_min([X|T],U)).
-
- % se y for mais pequeno q w entao w
-% maispeq([],(_,_)).
-% maispeq([(X,Y)|T],(J,N)):-N is min(Y,N),maispeq(T,(X,Y)); maispeq(T,(J,N)).
-
-% list_min([(T,L)|Ls], (R,Min)) :- foldl(num_num_min, Ls, L, Min).
-% num_num_min(X, Y, Min) :- Min is min(X, Y).
-
-% ecologico([Estafeta1],(X,N)):-ecologico_aux(Estafeta1,[W|T]),maispeq([W|T],(X,N))
-
-% n mais pequeno
-% list_min([L|Ls], Min) :- foldl(num_num_min, Ls, L, Min).
-% num_num_min(X, Y, Min) :- Min is min(X, Y).
-
-% minimoindice([],_).
-% minimoindice([X|T],Index):-list_min([X|T],U),nth0(Index,[X|T],U).
-
-% pode dar erro pode ter varias vees o msm estafeta
-%ecologicoEstafeta(Estafeta,Ecologia) :- caminho(Estafeta,_,Veiculo,_,_,_,_),
-                                    %    veiculo(Veiculo,Ecologia).
-
-%query1_aux(Estafeta,Lista):-findall((Estafeta,Ecologia),ecologicoEstafeta(Estafeta,Ecologia),Lista).
 
 
-%query1_aux2([],_).
-%query1_aux2([Estafeta1|Estafetas],Lista):-query1_aux(Estafeta1,Y0),query1_aux2(Estafetas,Lista).
 
-    %findall (Estafeta,min(ecologicoEstafeta(Estafeta,X),Bag).
+ecologia(Estafeta,Numb):- findall(Ecologia,ecologicoEstafeta(Estafeta,Ecologia),Lista),soma(Lista,Numb).
 
+concatena([],[],[]).
+concatena([],[X],[X]).
+concatena([X|T],[Y|O],[X|U]):- concatena(T,[Y|O],U).
 
-%ecologico_aux([],[]).
-%ecologico_aux([Estafeta|Estafetas],[(Estafeta,X)|T]):-ecologicoEstafeta(Estafeta,X),ecologico_aux(Estafetas,T).
+ecologiaf(Lista):-findall((Estafeta,Numb),(confirmacao(Estafeta,_,_,_,_,_,_),ecologia(Estafeta,Numb)),Lista).
 
+query1_aux(List):-ecologiaf(Lista),predsort(compare_by_second,Lista,List).
 
-%list_min([(L,T)|Ls],(U,Min)) :- foldl(num_num_min, Ls, (L,T), (U,Min)).
-%num_num_min((X,U),(H,Y),(N,Min)) :-(U>Y -> N is H,Min is Y; N is X, Min is U).
-%myrec([],(_,_)).
-%myrec ([(X,U)],(Estafeta,Min)):- Estafeta is X, Min is U.
-%myrec([(X,U),(H,Y)|Ls],(Estafeta,Min)):-(U>Y -> myrec([(H,Y)|Ls],(H,Y)); myrec([(X,U)|Ls],(X,U))).
+query1(X):-query1_aux([(X,_)|_]).
 
-
-%query1([],(_,_)).
-%query1([Estafeta1],(X,Y)):-ecologico_aux([Estafeta1],[(W,K)|I]),list_min([(W,K)|I],(X,Y)).
 
 
 %Query 2
@@ -276,30 +241,44 @@ query3(Estafeta,Lista):- findall(X,query3_aux(Estafeta,X),Lista).
 % caminho(estafeta, cliente, veiculo,data,o q leva,preço, tempo que se quer q demore, n serie)
 % confirmacao(estafeta,cliente,veiculo, data de entrega,tempo demorado ,ranking, n serie)
 
-soma([],0).
-soma([H|T],S):-soma(T,G),S is H+G.
 
 query4_aux(Dia,Preco):- caminho(_,_,_,dataehora(_,Dia),_,Preco,_,_). %assumimos que paga qd faz a encomenda
 query4(Data,Valor):- findall(Custo,query4_aux(Data,Custo),Lista), soma(Lista,Valor).
 
 
 %Query 5
+%ordem decrescente 
+compare_by_second2(<, (A, B), (C, D)) :-
+    (   B @< D
+    ;   B == D,
+        A @< C ).
+compare_by_second2(=, (A, B), (C, D)) :-
+    A == C,
+    B == D.
+compare_by_second2(>, (A, B), (C, D)) :-
+    (   B @> D
+    ;   B == D,
+        A @> C ).
 
-query5_aux1(Cliente,Rua) :- confirmacao(Cliente,_,_,_,_,_,_),clienteerua(Cliente,rua(Rua,_)).
+%função que devolve tds as ruas existentes  
+query5_aux2(List):- findall(Rua,(confirmacao(_,Cliente,_,_,_,_,_),clienteerua(Cliente,rua(Rua,_))),List).
 
 
-%query5_aux2(Rua,List)
-query5_aux2(Rua,List) :- findall(Rua ,query5_aux1(_,Rua),List).
 
+%funções que comparam as ruas e as organizam as tuplos 
 procura(Rua1,[],(Rua1,0)).
 procura(Rua1 ,[Rua1|Ruas],(Rua1,X)) :- procura(Rua1,Ruas,(Rua1,X0)), X is X0+1.
 procura(Rua1 ,[Rua3|Ruas],(Rua1,X)) :- Rua1\=Rua3,procura(Rua1,Ruas,(Rua1,X)).
 
-query_comp (_ ,[]).
-query_comp([Rua|Ruas],[(_,Y)|T]):-procura(Rua,Ruas,(Rua,Y)),query_comp(Ruas,T).
+query_comp([],[]).
+query_comp([Rua|Ruas],[(X,Y)|T]):-procura(Rua,Ruas,P),P=(X,Y), query_comp(Ruas,T).
 
 
-%query5(Rua,X):- aggregate(query5_aux2(_,Rua),Rua, max).
+%dada uma lista de ruas organiza
+query5_aux1(Ruas,A) :- query_comp(Ruas,P),predsort(compare_by_second2,P,A),write(A).
+
+query5(Rua):-query5_aux2(List),query5_aux1(List,[(X,_)|_]),Rua =X. 
+
 
 
 %Query 6
@@ -346,7 +325,7 @@ query8(Data1,Data2,C):-findall(X,query8_aux(Data1,Data2,X),List),length(List, C)
 
 %Query 9
 
-query9(Data1,Data2,(X,Y)):- query8(Data1,Data2,X),findall(I, caminho(_,_,_,_,_,_,_,I),List),length(List, C), Y is C-X.
+query9(Data1,Data2,(X,Y)):- query8(Data1,Data2,X),findall(I,caminho(_,_,_,_,_,_,_,I),List),length(List, C), Y is C-X.
 
 
 %Query 10 
@@ -363,6 +342,28 @@ query10(Estafeta,Dia,PesoTotal):-findall(Peso,query10_aux(Estafeta,Dia,Peso),Lis
 % determinar quantas entregas ocorreram numa dada hora
 
 query12(Hora,X):- findall(Hora,confirmacao(_,_,_,dataehora1(_,Hora),_,_,_),Lista),length(Lista,X).
+
+%Invariante estrutural
+:- op( 900,xfy,'::' ).
+/*caminho(catia,paulo,mota,
+    dataehora(hora(11,15),data(2,12,2021)),
+    encomenda(livros,18,100),40,tempo(0,0,8),2012).
+*/
+
+validaVeiculo(Veiculo):-veiculo(Veiculo,_).
+validaData(Data):-
+
++inserirCaminho(Estafeta,Cliente,Veiculo,DataeHora,Encomenda,Preco,Tempo,NS)::(
+    atom(Estafeta),
+    atom(Cliente),
+    validaveiculo(Veiculo),
+    validaData(DataeHora),
+    validaencomenda(Encomenda),
+    integer(Preco),
+    validatempo(Tempo),
+    validaSerie(NS)).
+
++inserirAva(Cliente,Estafeta,Avaliacao) :: confirmacao(Estafeta,Cliente,_,_,_,_,_),length(S,N), N==1).
 
 
 
