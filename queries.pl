@@ -10,7 +10,6 @@ queryteste(X) :-
     ),
     length(List,X).
 
-
 % QUERY 1
 compare_by_second(<, (A, B), (C, D)) :-
     (   B @> D
@@ -225,13 +224,9 @@ query12(Lista) :-
 % Invariante 
 :- op(900,xfy,'::' ).
 
-%verifica inserção-> apenas aceita se existir a encomenda
-+caminho(_,_,_, _, encomenda(X,Z,Y), _,_,_) ::
-(findall((X,Z,Y), encomenda(X,Z,Y), S), length(S, N) , N > 0).
-
 %verifica inserção --> não aceita se já existir numero de série
-%+caminho(Estafeta, Cliente, Veiculo, DataHora,Encomenda,Preco,Tempo, NS) ::
-% (findall((NS), caminho(_,_,_,_,_,_,_,NS),S), length(S, N) , N == 0).
++caminho(Estafeta, Cliente, Veiculo, DataHora,Encomenda,Preco,Tempo, NS) ::
+ (findall((NS), caminho(_,_,_,_,_,_,_,NS),S), length(S, N) , N == 1).
 
 % QUERY 14 (EXTRA)
 soma([],0).
