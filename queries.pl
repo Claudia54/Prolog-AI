@@ -1,5 +1,4 @@
-
-% Includes 
+% Include Base de Dados 
 :-include('basedados.pl').
 
 % Query text -> verifica quantos caminhos tem confirmação 
@@ -227,30 +226,32 @@ query12(Lista) :-
 
 % QUERY 13(EXTRA)
 % Invariante estrutural
-:- op( 900,xfy,'::' ).
+:- op(900,xfy,'::' ).
 
 validaVeiculo(Veiculo) :-
     veiculo(Veiculo,_).
+
 validaData(dataehora(hora(U,C),data(X,Y,_))) :-
-    X=<31,
-    X>0,
-    Y>0,
-    Y=<12,
-    U=<23,
-    U>=0,
-    C=<59,
-    C>=0.
-validaencomenda(encomenda(X,Y,Z)).
+    0 < X, X =< 31,
+    0 < Y, Y =< 12,
+    0 =< U, U =< 23,
+    0 =< C, C =< 59.
+
+validaencomenda(encomenda(X,Y,Z)) :-
+    encomenda(X,Y,Z).
+
 validaSerie(NS) :-
     findall(NS,caminho(_,_,_,_,_,_,_,NS),List),
     length(List,0).
-validatempo(tempo(X,Y,Z)).
+
+validatempo(tempo(X,Y,Z)) :-
+    tempo(X,Y,Z).
 
 +caminho(Estafeta,Cliente,Veiculo,DataHora,Encomenda,Preco,Tempo,NS)::(
     atom(Estafeta),
     atom(Cliente),
     validaveiculo(Veiculo),
-    validaData(Data,Hora),
+    validaData(DataHora),
     validaencomenda(Encomenda),
     integer(Preco),
     validatempo(Tempo),
