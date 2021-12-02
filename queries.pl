@@ -199,13 +199,14 @@ query10(Estafeta,Dia,PesoTotal) :-
     soma(Lista,PesoTotal).
 
 
-% QUERY 12(EXTRA)
+% QUERY 11(EXTRA)
 % Determinar quantas entregas ocorreram numa dada hora
-query12(Hora,X) :- 
-    findall(Hora,confirmacao(_,_,_,dataehora1(_,Hora),_,_,_),Lista),length(Lista,X).
+query11(Hora,X) :- 
+    findall(Hora,confirmacao(_,_,_,dataehora1(_,Hora),_,_,_),Lista),
+    length(Lista,X).
 
 
-% QUERY13(EXTRA)
+% QUERY 12(EXTRA)
 % Entregas feitas atempadamente 
 converteTempoHoras(tempo(M,D,H),X) :-
     X is H+(D*24)+(M*30*24).
@@ -215,16 +216,16 @@ comparaTempos(tempo(M1,D1,H1),tempo(M2,D2,H2)) :-
     converteTempoHoras(tempo(M2,D2,H2),Y),
     X=<Y.
 
-query13_aux(Serie) :-
+query12_aux(Serie) :-
     confirmacao(Estafeta,Cliente,Veiculo,_,Tempo,_,Serie),
     caminho(Estafeta,Cliente,Veiculo,_,_,_,TempoS,Serie),
     comparaTempos(Tempo,TempoS).
 
-query13(Lista) :-
-    findall(Serie,query13_aux(Serie),Lista).
+query12(Lista) :-
+    findall(Serie,query12_aux(Serie),Lista).
 
 
-% QUERY 14(EXTRA)
+% QUERY 13(EXTRA)
 % Invariante estrutural
 :- op( 900,xfy,'::' ).
 
