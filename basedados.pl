@@ -1,19 +1,20 @@
 %identificar quais as zonas com maior volume de entregas por parte da green distribution
 %rua-freguesia 
-rua(vasco_da_Gama, gualtar).
+rua(vasco_da_Gama, bagunte).
 rua(da_Torre, bagunte).
 rua(castelo_do_Norte, nogueiro).
 rua(afonso_de_Jeronimo, prado).
-rua(familia_Real, greenville).
+rua(familia_Real, esposende).
 rua(torta, esposende).
+rua(nova_america, esposende).
 
 %clientes -nome , rua 
-clienteerua(ogando,rua(vasco_da_Gama, gualtar)).
+clienteerua(ogando,rua(vasco_da_Gama, bagunte)).
 clienteerua(paulo,rua(da_Torre,bagunte)).
-clienteerua(marlene,rua(castelo_do_Norte,nogueiro)).
+%clienteerua(marlene,rua(castelo_do_Norte,nogueiro)).
 clienteerua(susana,rua(afonso_de_Jeronimo,prado)).
-clienteerua(jessica,rua(familia_Real, greenville)).
-%clienteerua(sandro,rua(familia_Real, esposende)).
+clienteerua(jessica,rua(familia_Real, esposende)).
+clienteerua(marlene,rua(nova_america, esposende)).
 clienteerua(sandro,rua(torta, esposende)).
 
 %encomenda ( o que leva ,peso,volume(cm) )
@@ -174,3 +175,36 @@ confirmacao(carlos,marle,bicicleta,
 confirmacao(catia,paulo,mota,
     dataehora1(data(2,12,2021),hora(19,20)),
     tempo(0,0,8),5,2012).
+
+
+pontorecolha(gualtar).
+
+
+
+%1 caminho
+
+g(grafo([gualtar,familia_Real,nova_america,torta,vasco_da_Gama,da_Torre,afonso_de_Jeronimo],
+    [edge(gualtar,familia_Real,10),
+     edge(familia_real,gualtar,10),
+     edge(gualtar,nova_america,20),
+     edge(nova_america,gualtar,20),
+     edge(gualtar,torta,5),
+     edge(torta,gualtar,5),
+     edge(familia_Real,torta,1),
+     edge(torta,familia_Real,1),
+     edge(familia_real,nova_america,3),
+     edge(nova_america,familia_real,3),
+     edge(nova_america,torta,2),
+     edge(torta,nova_america,2),
+     
+     %2 caminho (local de saida , local de chegada , distancia em km)
+     edge(gualtar,vasco_da_Gama,25),
+     edge(vasco_da_Gama,gualtar,25),
+     edge(gualtar,da_Torre,30),
+     edge(da_Torre,gualtar,30),
+     edge(vasco_da_Gama,da_Torre,4),
+     edge(da_Torre,vasco_da_Gama,4),
+     
+     %3 caminho
+     edge(gualtar,afonso_de_Jeronimo,15),
+     edge(afonso_de_Jeronimo,gualtar,15)])).

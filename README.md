@@ -45,3 +45,31 @@ Distribution, num determinado período de tempo; (André)
 - No caso das motos, este meio poderá transportar encomendas com um limite máximo de 20 Kg e com uma velocidade média de cerca de 35km/h;
 - Relativamente ao carro, este terá uma velocidade média de aproximadamente 25km/h, com um peso máximo de transporte de 100kg.
 
+1º passo 
+[X] implementar factos -> ruas e garfo -> sai recolha , casa e volta recolha
+
+2ªpasso
+[X]-> avaliar se o estafeta pode realizar mais uma encomenda n sei o q isto quer dizer :Utilize exemplos concretos, exemplificando através da linguagem de
+programação escolhida.
+
+3ºpasso- aplicar 
+
+nao informada -> Profundidade (DFS - Depth-First Search),Largura (BFS - Breadth-First Search),Busca Iterativa Limitada em Profundidade;
+informada-> gulosa e estrela.
+
+
+->Gerar os circuitos de entrega, caso existam, que cubram um determinado território
+(e.g. rua ou freguesia);
+
+[x]-> Representação dos diversos pontos de entrega em forma de grafo, tendo em conta
+que apenas se devem ter localizações (rua e/ou freguesia) disponíveis;
+
+->Identificar quais os circuitos com maior número de entregas (por volume e peso);
+
+->Comparar circuitos de entrega tendo em conta os indicadores de produtividade;
+
+->Escolher o circuito mais rápido (usando o critério da distância);
+
+->Escolher o circuito mais ecológico (usando um critério de tempo);
+
+4ºpasso -> aplicar timer 
