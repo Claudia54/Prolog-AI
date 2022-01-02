@@ -2,10 +2,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Set;
 
 public class Grafo {
@@ -46,29 +44,6 @@ public class Grafo {
         }
         return n;
     }
-
-
-
-
-public Set<String> breathFirstTransversal (Grafo graph,String root){
-    Set<String> visited = new LinkedHashSet<String>();
-    Queue<String>queue =new LinkedList<String>();
-    queue.add(root);
-    while(!queue.isEmpty()){
-        String vertex =queue.poll();
-        for(Nodo v: graph.getAdjVertices(vertex)){
-            if(!visited.contains(v.getOrigem())){
-                visited.add(v.getOrigem());
-                queue.add(v.getOrigem());
-            }}
-    }
-    for (String vis : visited){
-        System.out.println(" "+vis+" ");
-    }
-
-    return visited;
-}
-
     @Override
     public String toString() {
         return "Grafo{" +

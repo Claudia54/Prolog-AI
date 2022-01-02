@@ -30,8 +30,11 @@ public class Main{
         Grafo g1 = new Grafo(list);
         //Set<String> n= new HashSet<String>();
             
+        Queries q = new Queries(g1);
         
-        
+        q.breathFirstTransversal("Gualtar");
+
+
         //a.breathFirstTransversal(g1,"Gualtar");
         //System.out.println();
     }
