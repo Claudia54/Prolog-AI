@@ -22,7 +22,7 @@ public class Encomenda {
         this.data = data;
         this.dataencomenda = dataencomenda;
         this.estafeta = estafeta;
-        this.nodo = nodo;
+        //this.nodo = nodo;
     }
 
     public Encomenda(Encomenda e){
@@ -33,7 +33,7 @@ public class Encomenda {
         this.data = e.getData();
         this.dataencomenda = e.getDataencomenda();
         this.estafeta = e.getEstafeta();
-        this.nodo = e.getNodo();
+        //this.nodo = e.getNodo();
     }
 
     public String getId() {

@@ -107,8 +107,10 @@ public class Grafo {
             System.out.println(" "+vis+" ");
         }
     
+    
         return caminho;
     }
+
 
 
    /* public  Nodo aStar(Nodo start, Nodo target){
@@ -153,6 +155,7 @@ public class Grafo {
 }
     
 */
+
     
 
 }

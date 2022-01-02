@@ -4,12 +4,14 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
 public class Queries {
     private Grafo grafo;
+    private List<Encomenda>encomenda;
 
 
 /*
@@ -72,6 +74,16 @@ public Set<String> q1BFS(String root, String freguesia){
 
         return caminho;
     }
+
+    public void q2BFS(){
+       
+        q1BFS("Gualtar",);
+
+    }
+
+
+
+
        
 
     }
