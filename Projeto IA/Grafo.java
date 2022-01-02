@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
@@ -14,6 +15,7 @@ import java.util.Stack;
 public class Grafo {
     //private Integer vertice;
     private List<Nodo>lista;
+   
 
     
     public Grafo(List<Nodo> lista) {
@@ -56,7 +58,7 @@ public class Grafo {
                 "lista de Nodos=" + lista +
                 '}'+" ";
     }
-    
+
 
     public Set<String> breathFirstTransversal (String root){
         Set<String> visited = new LinkedHashSet<String>();
@@ -78,6 +80,14 @@ public class Grafo {
     
         return visited;
         }
+
+
+
+
+      
+       
+    
+
         
     public Set<String> dft(String origem) {
         Set<String> caminho = new LinkedHashSet<>();
@@ -99,6 +109,51 @@ public class Grafo {
     
         return caminho;
     }
+
+
+   /* public  Nodo aStar(Nodo start, Nodo target){
+        PriorityQueue<Nodo> closedList = new PriorityQueue<>();
+        PriorityQueue<Nodo> openList = new PriorityQueue<>();
+    
+        start.f = start.g + start.getQuilometros();
+        openList.add(start);
+    
+        while(!openList.isEmpty()){
+            Nodo n = openList.peek();
+            if(n == target){
+                return n;
+            }
+    
+            for(Nodo edge :getAdjVertices(start.getOrigem())){
+                double totalWeight = n.g + edge.getQuilometros();
+    
+                if(!openList.contains(edge) && !closedList.contains(edge)){
+                    edge.getOrigem() = n;
+                    edge.g = totalWeight;
+                    edge.f = m.g + m.calculateHeuristic(target);
+                    openList.add(m);
+                } else {
+                    if(totalWeight < m.g){
+                        m.parent = n;
+                        m.g = totalWeight;
+                        m.f = m.g + m.calculateHeuristic(target);
+    
+                        if(closedList.contains(m)){
+                            closedList.remove(m);
+                            openList.add(m);
+                        }
+                    }
+                }
+            }
+    
+            openList.remove(n);
+            closedList.add(n);
+        }
+        return null;
+}
+    
+*/
+    
 
 }
 

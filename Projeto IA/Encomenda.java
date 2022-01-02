@@ -1,4 +1,8 @@
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
 
 public class Encomenda {
     private String id ;
@@ -8,7 +12,7 @@ public class Encomenda {
     private LocalDateTime data;
     private LocalDateTime dataencomenda;
     private String estafeta;
-    private Nodo nodo;
+    private String destino;
 
     public Encomenda(String id, Integer volume, Integer peso, String veiculo, LocalDateTime data, LocalDateTime dataencomenda, String estafeta, Nodo nodo) {
         this.id = id;
@@ -95,5 +99,20 @@ public class Encomenda {
     public void setNodo(Nodo nodo) {
         this.nodo = nodo;
     }
+
+    
+            
+        
+
+
+    }
+
+
+
+
+
+
+
+
 
 }

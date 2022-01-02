@@ -9,6 +9,8 @@ public class Nodo {
     private String destino;
     private Integer quilometros;
     private String freguesia;
+    public double f = Double.MAX_VALUE;
+    public double g = Double.MAX_VALUE;
    
 
 

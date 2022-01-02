@@ -32,11 +32,14 @@ public class Main{
             
         Queries q = new Queries(g1);
         
-        g1.breathFirstTransversal("Gualtar");
+        q.query1DFS("Gualtar","Esposende");
+        q.q1BFS("Gualtar", "Esposende");
 
 
         //a.breathFirstTransversal(g1,"Gualtar");
         //System.out.println();
+        Controller controller = new Controller();
+        controller.initMenuInicial();
     }
     
     }
