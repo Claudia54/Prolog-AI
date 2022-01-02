@@ -9,6 +9,7 @@ public class Nodo {
     private String destino;
     private Integer quilometros;
     private String freguesia;
+   
 
 
 
@@ -17,6 +18,7 @@ public Nodo(String origem, String destino, Integer quilometros,String freguesia)
         this.destino = destino;
         this.quilometros = quilometros;
         this.freguesia=freguesia;
+        
         //this.encomenda=encomenda;
     }
 
@@ -89,6 +91,8 @@ public Set<String> breathFirstTransversal (Grafo graph,String root){
     return visited;
 }
 */
+
+
 @Override
     public String toString() {
         return " \n"+"Nodo{" +

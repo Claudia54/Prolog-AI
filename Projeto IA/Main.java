@@ -32,7 +32,7 @@ public class Main{
             
         Queries q = new Queries(g1);
         
-        q.breathFirstTransversal("Gualtar");
+        g1.breathFirstTransversal("Gualtar");
 
 
         //a.breathFirstTransversal(g1,"Gualtar");

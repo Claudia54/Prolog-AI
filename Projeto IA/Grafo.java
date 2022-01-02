@@ -2,9 +2,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
+
+//import Nodo.java;
 
 public class Grafo {
     //private Integer vertice;
@@ -44,25 +49,56 @@ public class Grafo {
         }
         return n;
     }
+
     @Override
     public String toString() {
         return "Grafo{" +
                 "lista de Nodos=" + lista +
-                '}';
+                '}'+" ";
     }
+    
 
-   /* public void addEgde(String freguesia , String source, String destination, int weight) {
-        Nodo edge = new Nodo(source, destination, weight);
-        if (listaadjacente.containsKey(freguesia)){
-            listaadjacente.get(freguesia).add(edge);
+    public Set<String> breathFirstTransversal (String root){
+        Set<String> visited = new LinkedHashSet<String>();
+        Queue<String>queue =new LinkedList<String>();
+        queue.add(root);
+        while(!queue.isEmpty()){
+            String vertex =queue.poll();
+            for(Nodo v: getAdjVertices(vertex)){
+                if(!visited.contains(v.getDestino())){
+                    visited.add(v.getDestino());
+                    queue.add(v.getDestino());
+    
+                }
+            }
         }
-        else{
-            ArrayList n = new ArrayList();
-            n.add(edge);
-            listaadjacente.put(freguesia,n);
+        for (String vis : visited){
+            System.out.println(" "+vis+" ");
         }
+    
+        return visited;
+        }
+        
+    public Set<String> dft(String origem) {
+        Set<String> caminho = new LinkedHashSet<>();
+        Stack<String> stack = new Stack<>();
+
+        stack.push(origem);
+        while (!stack.isEmpty()) {
+            String vertice = stack.pop();
+            if (!caminho.contains(vertice)) {
+                caminho.add(vertice);
+                for (Nodo nodo : getAdjVertices(origem)) {
+                    stack.push(nodo.getDestino());
+                }
+            }
+        }
+        for (String vis : caminho){
+            System.out.println(" "+vis+" ");
+        }
+    
+        return caminho;
     }
-*/
 
 }
 
