@@ -11,19 +11,11 @@ public class Queries {
 /*
 Método que vai buscar os vertices adjacentes a um dado ponto
 */ 
-public Set<Nodo> getAdjVertices(String origem){
-        Set<Nodo> n = new HashSet<>();
-        for(Nodo nodo : grafo.getListaNodos()){
-            if(nodo.getOrigem().equals(origem)){
-                n.add(nodo);
-            }
-        }
-        return n;
-}
+
 
 /*
 Método que percorre o grafo BFT -->
-*/ 
+ */
 public Set<String> breathFirstTransversal (Grafo graph,String root){
     Set<String> visited = new LinkedHashSet<String>();
     Queue<String>queue =new LinkedList<String>();
@@ -31,8 +23,8 @@ public Set<String> breathFirstTransversal (Grafo graph,String root){
     while(!queue.isEmpty()){
         String vertex =queue.poll();
     }
-    for(Nodo v: grafo.getAdjVertices(grafo.getOrigem())){
-            if(!visited.contains(v.getOrigem()){
+    for(Nodo v: grafo.getAdjVertices(root)){
+            if(!visited.contains(v.getOrigem())){
                 visited.add(v.getOrigem());
             }
     }

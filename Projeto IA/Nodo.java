@@ -12,7 +12,7 @@ public class Nodo {
 
 
 
-public Nodo(String origem, String destino, Integer quilometros,String string) {
+public Nodo(String origem, String destino, Integer quilometros,String freguesia) {
         this.origem = origem;
         this.destino = destino;
         this.quilometros = quilometros;
@@ -24,7 +24,7 @@ public Nodo(String origem, String destino, Integer quilometros,String string) {
         this.origem = nodo.getOrigem();
         this.destino = nodo.getDestino();
         this.quilometros = nodo.getQuilometros();
-        this.freguesia=nodo.getfreguesia();
+        this.freguesia=nodo.getFreguesia();
         //this.encomenda = nodo.getEncomenda();
     }
 
@@ -69,7 +69,7 @@ public void setFreguesia(String freguesia) {
     this.freguesia= freguesia;
 }
 
-
+/*
 public Set<String> breathFirstTransversal (Grafo graph,String root){
     Set<String> visited = new LinkedHashSet<String>();
     Queue<String>queue =new LinkedList<String>();
@@ -82,9 +82,22 @@ public Set<String> breathFirstTransversal (Grafo graph,String root){
                 queue.add(v.getOrigem());
             }}
     }
+    for (String vis : visited){
+        System.out.println(" "+vis+" ");
+    }
 
     return visited;
 }
+*/
+@Override
+    public String toString() {
+        return " \n"+"Nodo{" +
+                "origem='" + origem + '\'' +
+                ", destino='" + destino + '\'' +
+                ", quilometros=" + quilometros +
+                ", freguesia='" + freguesia + '\'' +
+                '}';
+    }
 }
 /*
 public Set<String> dfs(Grafo grafo, String origem){

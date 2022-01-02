@@ -1,7 +1,9 @@
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 public class Main{
-    public void main (String args){
+    public static void main (String[] args){
         Nodo a = new Nodo("Gualtar", "Familia Real", 10, "Esposende");
         Nodo b = new Nodo("Gualtar", "Nova America", 20, "Esposende");
         Nodo c = new Nodo("Gualtar", "Torta", 5, "Esposende");
@@ -26,8 +28,11 @@ public class Main{
         list.add(j);
 
         Grafo g1 = new Grafo(list);
+        //Set<String> n= new HashSet<String>();
+            
         
-
+        
+        //a.breathFirstTransversal(g1,"Gualtar");
         //System.out.println();
     }
     
