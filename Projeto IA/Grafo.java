@@ -1,13 +1,7 @@
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
@@ -32,6 +26,20 @@ public class Grafo {
     public Nodo getNodo(String freguesia){
         return this.lista.stream()
                 .filter(n -> n.getFreguesia().equals(freguesia))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public Nodo getNodoOrigem(String origem){
+        return this.lista.stream()
+                .filter(n -> n.getOrigem().equals(origem))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public Nodo getNodoFinal(String destino){
+        return this.lista.stream()
+                .filter(n -> n.getDestino().equals(destino))
                 .findFirst()
                 .orElse(null);
     }
@@ -193,7 +201,37 @@ public class Grafo {
 //   }
 
 
+//    public Set<String> gulosa(String origem, String destino){
+//        Set<String> caminho = new LinkedHashSet<String>();
+//        Queue<String> queue = new LinkedList<String>();
+//        queue.add(origem);
+//        while ((!queue.isEmpty())){
+//               for(){ //
+//                   if (){ //for diferente
+//                         queue.remove();
+//                        caminho.add(origem);
+//
+//                }
+//            }
+//        }
+//        return caminho;
+//    }
 
-
+//    public Set<String> gulosa(String origem, String destino) {
+//        Set<String> caminho = new LinkedHashSet<String>();
+//        Queue<String> queue = new LinkedList<String>();
+//        queue.add(origem);
+//        Nodo inicial = getNodoOrigem(origem);
+//        for (Nodo n : getAdjVertices(origem)) { //percorrer a lista de nodos
+//            if ((inicial.getOrigem().equals(n.getOrigem())) && (!inicial.getDestino().equals(destino))) { //
+//                caminho.add(origem);
+//                queue.add(origem);
+//                inicial = ; //avançar para o proximo
+//            }else{
+//                queue.remove(inicial);
+//            }
+//        }
+//        return caminho;
+//    }
 }
 

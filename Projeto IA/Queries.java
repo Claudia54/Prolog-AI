@@ -15,6 +15,10 @@ public class Queries {
     private HashMap<String,List<Encomenda>> encomenda;
 
 
+
+    public Queries (Grafo grafo){
+        this.grafo = grafo;
+    }
 /*
 Método que vai buscar os vertices adjacentes a um dado ponto
 */ 
@@ -24,8 +28,6 @@ public Queries(Grafo grafo, HashMap<String,List<Encomenda>> encomenda) {
         this.grafo = grafo;
         this.encomenda=encomenda;
     }
-
-
 
 /*
 Método que percorre o grafo BFT -->
@@ -169,7 +171,7 @@ public Set<String> q1BFS(String root, String freguesia){
 
 
 
-    public Integer q4BFS(String root, String freguesia){
+    public int q4BFS(String root, String freguesia){
         Set<String> visited = new LinkedHashSet<String>();
         Queue<String>queue =new LinkedList<String>();
         int acumul=0;
@@ -186,54 +188,47 @@ public Set<String> q1BFS(String root, String freguesia){
                                 queue.add(v.getDestino());
                             }
                             }
-
                          }
 
                      }
-
-        
             return acumul;
         }
 
         
 
- 
+    public Integer query4DFS (String origem,String destino){
+        Set<java.lang.String> caminho = new LinkedHashSet<>();
+        Stack<java.lang.String> stack = new Stack<>();
+        List<Integer> total = new ArrayList<Integer>();
+        int acumul=0;
+        stack.push(origem);
+        Nodo des = grafo.getNodoFinal(destino);
+            while (!stack.isEmpty()) {
+                java.lang.String vertice = stack.pop();
+                if (!caminho.contains(vertice)) {
+                    caminho.add(vertice);
+                    for (Nodo nodo : grafo.getAdjVertices(origem)) {
+                        if(nodo.getFreguesia().equals(des.getFreguesia())) {
+                            System.out.println(nodo);
+                            System.out.println(nodo.getQuilometros());
+                            acumul+=nodo.getQuilometros();
 
-        public Integer query4DFS (String origem,String destino){
-            Set<java.lang.String> caminho = new LinkedHashSet<>();
-            Stack<java.lang.String> stack = new Stack<>();
-            List<Integer> total = new ArrayList<Integer>();
-            int acumul=0;
-            stack.push(origem);
-            Nodo des = grafo.getNodoDestino(destino);
-                while (!stack.isEmpty()) {
-                    java.lang.String vertice = stack.pop();
-                    if (!caminho.contains(vertice)) {
-                        caminho.add(vertice);
-                        for (Nodo nodo : grafo.getAdjVertices(origem)) {
-                            if(nodo.getFreguesia().equals(des.getFreguesia())) {
-                                System.out.println(nodo);
-                                System.out.println(nodo.getQuilometros());
-                                acumul+=nodo.getQuilometros();
-    
-                            }
                         }
                     }
                 }
-                for (Integer vis : total){
-                    System.out.println(" "+vis+" ");
-                }
-                return acumul;
-        }
-    
-    
-
-
-
-
-
-      
             }
+            for (Integer vis : total){
+                System.out.println(" "+vis+" ");
+            }
+            return acumul;
+    }
+    
+
+
+
+
+
+}
         
 
 
