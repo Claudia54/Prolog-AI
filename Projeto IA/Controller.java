@@ -91,13 +91,60 @@ public class Controller {
                         try {
                             int opcao = scanner.nextInt();
                             if (opcao == 1) {
-
+                                jan.printIndiqueFreg();
+                                Queries queries = new Queries(grafo);
+                                boolean search = true;
+                                while (search) {
+                                    String freguesiaNome = scanner.nextLine();
+                                    Nodo nodo = this.grafo.getNodo(freguesiaNome);
+                                    if(nodo == null)  jan.printIndiqueFregInv();
+                                    else {
+                                        queries.q2BFS("Gualtar", freguesiaNome);
+                                        search = false;
+                                    }
+                                }
                             } else if (opcao == 2) {
+                                jan.printIndiqueFreg();
+                                Queries queries = new Queries(grafo);
+                                boolean search = true;
+                                while (search) {
+                                    String freguesiaNome = scanner.nextLine();
 
+                                    Nodo nodo = this.grafo.getNodo(freguesiaNome);
+                                    if(nodo == null)  jan.printIndiqueFregInv();
+                                    else {
+                                        queries.query2DFS("Gualtar", freguesiaNome);
+                                        search = false;
+                                    }
+                                }
                             } else if (opcao == 3) {
+                                jan.printIndiqueFreg();
+                                Queries queries = new Queries(grafo);
+                                boolean search = true;
+                                while (search) {
+                                    String freguesiaNome = scanner.nextLine();
 
+                                    Nodo nodo = this.grafo.getNodo(freguesiaNome);
+                                    if(nodo == null)  jan.printIndiqueFregInv();
+                                    else {
+                                   //     queries.query2Gulosa("Gualtar", freguesiaNome);
+                                        search = false;
+                                    }
+                                }
                             } else if (opcao == 4) {
+                                jan.printIndiqueFreg();
+                                Queries queries = new Queries(grafo);
+                                boolean search = true;
+                                while (search) {
+                                    String freguesiaNome = scanner.nextLine();
 
+                                    Nodo nodo = this.grafo.getNodo(freguesiaNome);
+                                    if(nodo == null)  jan.printIndiqueFregInv();
+                                    else {
+                                     //   queries.query2Astar("Gualtar", freguesiaNome);
+                                        search = false;
+                                    }
+                                }
                             } else if (opcao == 0) {
                                 quit = true;
                             } else {
@@ -111,13 +158,61 @@ public class Controller {
                         try {
                             int opcao = scanner.nextInt();
                             if (opcao == 1) {
+                                jan.printIndiqueFreg();
+                                Queries queries = new Queries(grafo);
+                                boolean search = true;
+                                while (search) {
+                                    String freguesiaNome = scanner.nextLine();
 
+                                    Nodo nodo = this.grafo.getNodo(freguesiaNome);
+                                    if(nodo == null)  jan.printIndiqueFregInv();
+                                    else {
+                                        //queries.q3BFS("Gualtar", freguesiaNome);
+                                        search = false;
+                                    }
+                                }
                             } else if (opcao == 2) {
+                                jan.printIndiqueFreg();
+                                Queries queries = new Queries(grafo);
+                                boolean search = true;
+                                while (search) {
+                                    String freguesiaNome = scanner.nextLine();
 
+                                    Nodo nodo = this.grafo.getNodo(freguesiaNome);
+                                    if(nodo == null)  jan.printIndiqueFregInv();
+                                    else {
+                                  //      queries.query3DFS("Gualtar", freguesiaNome);
+                                        search = false;
+                                    }
+                                }
                             } else if (opcao == 3) {
+                                jan.printIndiqueFreg();
+                                Queries queries = new Queries(grafo);
+                                boolean search = true;
+                                while (search) {
+                                    String freguesiaNome = scanner.nextLine();
 
+                                    Nodo nodo = this.grafo.getNodo(freguesiaNome);
+                                    if(nodo == null)  jan.printIndiqueFregInv();
+                                    else {
+                                     //   queries.query2DFS("Gualtar", freguesiaNome);
+                                        search = false;
+                                    }
+                                }
                             } else if (opcao == 4) {
+                                jan.printIndiqueFreg();
+                                Queries queries = new Queries(grafo);
+                                boolean search = true;
+                                while (search) {
+                                    String freguesiaNome = scanner.nextLine();
 
+                                    Nodo nodo = this.grafo.getNodo(freguesiaNome);
+                                    if(nodo == null)  jan.printIndiqueFregInv();
+                                    else {
+                                      //  queries.query2DFS("Gualtar", freguesiaNome);
+                                        search = false;
+                                    }
+                                }
                             } else if (opcao == 0) {
                                 quit = true;
                             } else {
@@ -131,10 +226,21 @@ public class Controller {
                         try {
                             int opcao = scanner.nextInt();
                             if (opcao == 1) {
-                                jan.printIndiqueDest();
+                                jan.printIndiqueFreg();
+                                Queries queries = new Queries(grafo);
+                                boolean search = true;
+                                while (search) {
+                                    String freguesiaName = scanner.nextLine();
 
+                                    Nodo nodo = this.grafo.getNodo(freguesiaName);
+                                    if(nodo == null)  jan.printIndiqueDestInv();
+                                    else {
+                                        queries.q4BFS("Gualtar", freguesiaName);
+                                        search = false;
+                                    }
+                                }
                             } else if (opcao == 2) {
-                                jan.printIndiqueDest();
+                                jan.printIndiqueFregInv();
 
                             } else if (opcao == 3) {
                                 jan.printIndiqueDest();

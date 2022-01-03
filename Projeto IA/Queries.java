@@ -15,6 +15,11 @@ public class Queries {
     private HashMap<String,List<Encomenda>> encomenda;
 
 
+ public Queries (Grafo grafo){
+        this.grafo = grafo;
+    }
+
+
 /*
 Método que vai buscar os vertices adjacentes a um dado ponto
 */ 
@@ -24,6 +29,7 @@ public Queries(Grafo grafo, HashMap<String,List<Encomenda>> encomenda) {
         this.grafo = grafo;
         this.encomenda=encomenda;
     }
+
 
 
 
@@ -198,7 +204,7 @@ public Set<String> q1BFS(String root, String freguesia){
         
 
  
-
+/*
         public Integer query4DFS (String origem,String destino){
             Set<java.lang.String> caminho = new LinkedHashSet<>();
             Stack<java.lang.String> stack = new Stack<>();
@@ -227,8 +233,7 @@ public Set<String> q1BFS(String root, String freguesia){
         }
     
     
-
-
+*/
 
 
 
