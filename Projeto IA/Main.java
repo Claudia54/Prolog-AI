@@ -84,9 +84,9 @@ public class Main{
         //encomendas.get("Esposende").add(enc3);
 */
            Queries q = new Queries(grafo,encomendas);
-          int num= q.q4BFS("Gualtar","Esposende");
+          int num= q.query4DFS("Gualtar","Esposende");
            q.q1BFS("Gualtar", "Esposende");
-         System.out.println(num);
+           System.out.println(num);
 //        q.query1DFS("Gualtar","Esposende");
 //        q.q1BFS("Gualtar", "Esposende");
 

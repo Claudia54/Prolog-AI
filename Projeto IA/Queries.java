@@ -25,6 +25,8 @@ public Queries(Grafo grafo, HashMap<String,List<Encomenda>> encomenda) {
         this.encomenda=encomenda;
     }
 
+
+
 /*
 Método que percorre o grafo BFT -->
  */
@@ -195,22 +197,25 @@ public Set<String> q1BFS(String root, String freguesia){
 
         
 
-    public Integer query4DFS (String origem,String freguesia){
-        Set<java.lang.String> caminho = new LinkedHashSet<>();
-        Stack<java.lang.String> stack = new Stack<>();
-        List<Integer> total = new ArrayList<Integer>();
+ 
+
+        public Integer query4DFS (String origem,String destino){
+            Set<java.lang.String> caminho = new LinkedHashSet<>();
+            Stack<java.lang.String> stack = new Stack<>();
+            List<Integer> total = new ArrayList<Integer>();
             int acumul=0;
             stack.push(origem);
+            Nodo des = grafo.getNodoDestino(destino);
                 while (!stack.isEmpty()) {
                     java.lang.String vertice = stack.pop();
                     if (!caminho.contains(vertice)) {
                         caminho.add(vertice);
                         for (Nodo nodo : grafo.getAdjVertices(origem)) {
-                            if(nodo.getFreguesia().equals(freguesia)) {
+                            if(nodo.getFreguesia().equals(des.getFreguesia())) {
                                 System.out.println(nodo);
                                 System.out.println(nodo.getQuilometros());
                                 acumul+=nodo.getQuilometros();
-
+    
                             }
                         }
                     }
@@ -218,9 +223,9 @@ public Set<String> q1BFS(String root, String freguesia){
                 for (Integer vis : total){
                     System.out.println(" "+vis+" ");
                 }
-        
                 return acumul;
-            }
+        }
+    
     
 
 

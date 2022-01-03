@@ -125,6 +125,13 @@ public class Grafo {
         return caminho;
     }
 
+    public Nodo getNodoDestino(String destino){
+        return this.lista.stream()
+                .filter(n -> n.getDestino().equals(destino))
+                .findFirst()
+                .orElse(null);
+    }
+
 
 
 
