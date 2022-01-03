@@ -167,46 +167,40 @@ public Set<String> q1BFS(String root, String freguesia){
 
 
 
-
-
-
-
-
-        public Integer q4BFS(String root, String freguesia){
-            Set<String> visited = new LinkedHashSet<String>();
-            Queue<String>queue =new LinkedList<String>();
-            int acumul=0;
-            queue.add(root);
-            visited.add(root);
-            while(!queue.isEmpty()){
+    public Integer q4BFS(String root, String freguesia){
+        Set<String> visited = new LinkedHashSet<String>();
+        Queue<String>queue =new LinkedList<String>();
+        int acumul=0;
+        queue.add(root);
+          while(!queue.isEmpty()){
                 String vertex =queue.poll();
                 for(Nodo v: grafo.getAdjVertices(vertex)){
-                    if ( v.getFreguesia().equals(freguesia)){
-                        //System.out.println(v.getQuilometros());
-                    if(visited.contains(v.getOrigem()) && !visited.contains(v.getDestino())){
-                        System.out.println(v.getQuilometros());
-                        acumul+=v.getQuilometros();
-                        visited.add(v.getDestino());
-                        queue.add(v.getDestino());
-        
-                    }
-                }
-                }
-            }
+                    if(!visited.contains(v.getOrigem()) && !visited.contains(v.getDestino())){
+                        if ( v.getFreguesia().equals(freguesia)){
+                                System.out.println(v.getQuilometros());
+                                System.out.println(v);
+                                acumul+=v.getQuilometros();
+                                visited.add(v.getOrigem());
+                                queue.add(v.getDestino());
+                            }
+                            }
+
+                         }
+
+                     }
+
         
             return acumul;
         }
 
-   
-
         
 
-            public Integer query4DFS (String origem,String freguesia){
-                Set<java.lang.String> caminho = new LinkedHashSet<>();
-                Stack<java.lang.String> stack = new Stack<>();
-                List<Integer> total = new ArrayList<Integer>();
-                int acumul=0;
-                stack.push(origem);
+    public Integer query4DFS (String origem,String freguesia){
+        Set<java.lang.String> caminho = new LinkedHashSet<>();
+        Stack<java.lang.String> stack = new Stack<>();
+        List<Integer> total = new ArrayList<Integer>();
+            int acumul=0;
+            stack.push(origem);
                 while (!stack.isEmpty()) {
                     java.lang.String vertice = stack.pop();
                     if (!caminho.contains(vertice)) {
