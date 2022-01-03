@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -27,9 +29,9 @@ public class Grafo {
 
     /*Método que vai buscar todos os nodos  */
 
-    public Nodo getNodo(String origem){
+    public Nodo getNodo(String freguesia){
         return this.lista.stream()
-                .filter(n -> n.getOrigem().equals(origem))
+                .filter(n -> n.getFreguesia().equals(freguesia))
                 .findFirst()
                 .orElse(null);
     }
@@ -57,6 +59,10 @@ public class Grafo {
             }
         }
         return n;
+    }
+
+    public Integer tempo (Integer distancia, Integer velocidade){
+        return distancia/velocidade;
     }
 
     @Override
@@ -163,20 +169,20 @@ public class Grafo {
 }
 
 */
-   public Set<String> aEstrela(String inicial, String fim){
-       Set<String> vizinhos = new HashSet<>();
-       Set<String> caminho = new HashSet<>();
-
-       Nodo origem = null;
-       for (Nodo n : lista) {
-           if(n.getOrigem().equals(inicial) && (n.getDestino().equals(fim)){
-               origem = n;
-               origem.f = origem.g + origem.getQuilometros();
-               caminho.add(inicial);
-
-           }
-       }
-   }
+//   public Set<String> aEstrela(String inicial, String fim){
+//       Set<String> vizinhos = new HashSet<>();
+//       Set<String> caminho = new HashSet<>();
+//
+//       Nodo origem = null;
+//       for (Nodo n : lista) {
+//           if(n.getOrigem().equals(inicial) && (n.getDestino().equals(fim)){
+//               origem = n;
+//               origem.f = origem.g + origem.getQuilometros();
+//               caminho.add(inicial);
+//
+//           }
+//       }
+//   }
 
 
 

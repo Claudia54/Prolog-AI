@@ -26,18 +26,18 @@ public class Main{
         Nodo j = new Nodo("Afonso de Jeronimo", "Gualtar", 15, "Prado");
         Nodo j1 = new Nodo("Gualtar", "Afonso de Jeronimo", 15, "Prado");
 
-        Encomenda enc1 = new Encomenda("200" , 20, 5, "bicicleta", LocalDateTime.of(202,10,4,18,30),LocalDateTime.of(2020,10,5,17,20),"Roger","Torta");
-        Encomenda enc2 = new Encomenda("2001", 2800, 12, "carro",LocalDateTime.of(2020,10,4,18,30),LocalDateTime.of(2020,10,5,17,20),"Ilidio","Da Torre");
-        Encomenda enc3 = new Encomenda("2002", 20, 5,"mota",LocalDateTime.of(2021,11,24,17,20),LocalDateTime.of(2021,12,3,19,00),"Sheila","Torta");
-        Encomenda enc4 = new Encomenda("2003",75,1,"carro",LocalDateTime.of(2021,12,2,11,15),LocalDateTime.of(2021,12,3,19,20),"Filipe","Familia Real");
-        Encomenda enc5 = new Encomenda("2004", 5,1,"mota",LocalDateTime.of(2020,10,4,11,50),LocalDateTime.of(2020,10,4,11,50),"Carlos","Da Torre");
-        Encomenda enc6 = new Encomenda("2005");
-        Encomenda enc7 = new Encomenda("2006");
-        Encomenda enc8 = new Encomenda("2007");
-        Encomenda enc9 = new Encomenda("2008");
-        Encomenda enc10 = new Encomenda("2010");
-        Encomenda enc11 = new Encomenda("2011");
-        Encomenda enc12 = new Encomenda("2012");
+//        Encomenda enc1 = new Encomenda("200" , 20, 5, "bicicleta", LocalDateTime.of(202,10,4,18,30),LocalDateTime.of(2020,10,5,17,20),"Roger","Torta");
+//        Encomenda enc2 = new Encomenda("2001", 2800, 12, "carro",LocalDateTime.of(2020,10,4,18,30),LocalDateTime.of(2020,10,5,17,20),"Ilidio","Da Torre");
+//        Encomenda enc3 = new Encomenda("2002", 20, 5,"mota",LocalDateTime.of(2021,11,24,17,20),LocalDateTime.of(2021,12,3,19,00),"Sheila","Torta");
+//        Encomenda enc4 = new Encomenda("2003",75,1,"carro",LocalDateTime.of(2021,12,2,11,15),LocalDateTime.of(2021,12,3,19,20),"Filipe","Familia Real");
+//        Encomenda enc5 = new Encomenda("2004", 5,1,"mota",LocalDateTime.of(2020,10,4,11,50),LocalDateTime.of(2020,10,4,11,50),"Carlos","Da Torre");
+//        Encomenda enc6 = new Encomenda("2005");
+//        Encomenda enc7 = new Encomenda("2006");
+//        Encomenda enc8 = new Encomenda("2007");
+//        Encomenda enc9 = new Encomenda("2008");
+//        Encomenda enc10 = new Encomenda("2010");
+//        Encomenda enc11 = new Encomenda("2011");
+//        Encomenda enc12 = new Encomenda("2012");
 
         LinkedList list = new LinkedList<>();
         list.add(a);
@@ -51,18 +51,18 @@ public class Main{
         list.add(i);
         list.add(j);
 
-        Grafo g1 = new Grafo(list);
-        //Set<String> n= new HashSet<String>();
-            
-        Queries q = new Queries(g1);
+           Grafo grafo = new Grafo(list);
+//        //Set<String> n= new HashSet<String>();
+//
+//        Queries q = new Queries(g1);
         
-        q.query1DFS("Gualtar","Esposende");
-        q.q1BFS("Gualtar", "Esposende");
+//        q.query1DFS("Gualtar","Esposende");
+//        q.q1BFS("Gualtar", "Esposende");
 
 
         //a.breathFirstTransversal(g1,"Gualtar");
         //System.out.println();
-        Controller controller = new Controller(g1);
+        Controller controller = new Controller(grafo);
         controller.initMenuInicial();
     }
     

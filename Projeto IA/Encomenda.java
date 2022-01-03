@@ -13,8 +13,9 @@ public class Encomenda {
     private LocalDateTime dataencomenda;
     private String estafeta;
     private String destino;
+    private Integer velocidade;
 
-    public Encomenda(String id, Integer volume, Integer peso, String veiculo, LocalDateTime data, LocalDateTime dataencomenda, String estafeta, String destino) {
+    public Encomenda(String id, Integer volume, Integer peso, String veiculo, LocalDateTime data, LocalDateTime dataencomenda, String estafeta, String destino, Integer velocidade) {
         this.id = id;
         this.volume = volume;
         this.peso = peso;
@@ -23,6 +24,7 @@ public class Encomenda {
         this.dataencomenda = dataencomenda;
         this.estafeta = estafeta;
         this.destino = destino;
+        this.velocidade = velocidade;
     }
 
     public Encomenda(Encomenda e){
@@ -34,9 +36,10 @@ public class Encomenda {
         this.dataencomenda = e.getDataencomenda();
         this.estafeta = e.getEstafeta();
         this.destino = e.getDestino();
+        this.velocidade = e.getVelocidade();
     }
 
-    public String getId() {
+        public String getId() {
         return id;
     }
 
@@ -98,6 +101,14 @@ public class Encomenda {
 
     public void setDestino(String destino) {
         this.destino = destino;
+    }
+
+    public Integer getVelocidade() {
+        return velocidade;
+    }
+
+    public void setVelocidade(Integer velocidade) {
+        this.velocidade = velocidade;
     }
 }
 
