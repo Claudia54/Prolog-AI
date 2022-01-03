@@ -113,26 +113,28 @@ public class Grafo {
 
 
 
-   /* public  Nodo aStar(Nodo start, Nodo target){
-        PriorityQueue<Nodo> closedList = new PriorityQueue<>();
+  /* public Nodo aStar(String  start, String target, int casa){
+        PriorityQueue<String> closedList = new PriorityQueue<>();
         PriorityQueue<Nodo> openList = new PriorityQueue<>();
-    
-        start.f = start.g + start.getQuilometros();
-        openList.add(start);
+        //Nodo n = new Nodo(start,"",0,"");
+        int contar=0;
+        for(Nodo e : getAdjVertices(start)){
+         e.f = e.g + e.getQuilometros();
+         openList.add(e);
     
         while(!openList.isEmpty()){
             Nodo n = openList.peek();
-            if(n == target){
+            if(n.equals(target) && contar==casa){
                 return n;
             }
     
-            for(Nodo edge :getAdjVertices(start.getOrigem())){
+            for(Nodo edge :getAdjVertices(start)){
                 double totalWeight = n.g + edge.getQuilometros();
     
                 if(!openList.contains(edge) && !closedList.contains(edge)){
-                    edge.getOrigem() = n;
+                    edge.setOrigem(n);
                     edge.g = totalWeight;
-                    edge.f = m.g + m.calculateHeuristic(target);
+                    edge.f = edge.g + edge.getQuilometros();
                     openList.add(m);
                 } else {
                     if(totalWeight < m.g){
@@ -157,6 +159,7 @@ public class Grafo {
 */
 
     
+
 
 }
 

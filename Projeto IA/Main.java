@@ -14,6 +14,9 @@ public class Main{
         Nodo h = new Nodo("Gualtar", "Da Torre", 30,"Bagunte");
         Nodo i = new Nodo("Vasco da Gama", "Da Torre", 4,"Bagunte");
         Nodo j = new Nodo("Gualtar", "Afonso de Jeronimo", 15, "Prado");
+
+
+        //Encomenda enc = new Encomenda ("")
     
         LinkedList list = new LinkedList<>();
         list.add(a);

@@ -14,7 +14,7 @@ public class Encomenda {
     private String estafeta;
     private String destino;
 
-    public Encomenda(String id, Integer volume, Integer peso, String veiculo, LocalDateTime data, LocalDateTime dataencomenda, String estafeta, Nodo nodo) {
+    public Encomenda(String id, Integer volume, Integer peso, String veiculo, LocalDateTime data, LocalDateTime dataencomenda, String estafeta, String destino) {
         this.id = id;
         this.volume = volume;
         this.peso = peso;
@@ -22,7 +22,7 @@ public class Encomenda {
         this.data = data;
         this.dataencomenda = dataencomenda;
         this.estafeta = estafeta;
-        //this.nodo = nodo;
+        this.destino = destino;
     }
 
     public Encomenda(Encomenda e){
@@ -33,7 +33,7 @@ public class Encomenda {
         this.data = e.getData();
         this.dataencomenda = e.getDataencomenda();
         this.estafeta = e.getEstafeta();
-        //this.nodo = e.getNodo();
+        this.destino= e.getDestino();
     }
 
     public String getId() {
@@ -92,12 +92,12 @@ public class Encomenda {
         this.estafeta = estafeta;
     }
 
-    public Nodo getNodo() {
-        return nodo;
+    public String getDestino() {
+        return this.destino;
     }
 
-    public void setNodo(Nodo nodo) {
-        this.nodo = nodo;
+    public void setNodo(String Destino) {
+        this.destino= Destino;
     }
 
     
@@ -115,4 +115,4 @@ public class Encomenda {
 
 
 
-}
+
