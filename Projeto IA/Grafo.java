@@ -61,6 +61,7 @@ public class Grafo {
         return n;
     }
 
+
     public Integer tempo (Integer distancia, Integer velocidade){
         return distancia/velocidade;
     }

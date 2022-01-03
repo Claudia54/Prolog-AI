@@ -19,15 +19,15 @@ public class Queries {
 Método que vai buscar os vertices adjacentes a um dado ponto
 */ 
 
-public Queries(Grafo grafo) {
+public Queries(Grafo grafo, HashMap<String,List<Encomenda>> encomenda) {
+
         this.grafo = grafo;
+        this.encomenda=encomenda;
     }
 
 /*
 Método que percorre o grafo BFT -->
  */
-
-
 
 public Set<String> q1BFS(String root, String freguesia){
     Set<String> visited = new LinkedHashSet<String>();
@@ -76,6 +76,18 @@ public Set<String> q1BFS(String root, String freguesia){
         return caminho;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
     public List<Encomenda> q2_aux (String freguesia){
         return encomenda.get(freguesia);  
     }
@@ -99,10 +111,10 @@ public Set<String> q1BFS(String root, String freguesia){
     }
 
 
-    public void q2BFS (String freguesia){
-        String root = "Gualtar";
+    public  List<Integer> q2BFS (String root,String freguesia){
         Set<String> visited = new LinkedHashSet<String>();
         Queue<String>queue =new LinkedList<String>();
+        List<Integer> total = new ArrayList<Integer>();
         queue.add(root);
         visited.add(root);
         while(!queue.isEmpty()){
@@ -113,27 +125,138 @@ public Set<String> q1BFS(String root, String freguesia){
                     visited.add(v.getDestino());
                     queue.add(v.getDestino());
                     List<Encomenda> list = q2_aux(freguesia);
-                    List<Integer> total = q2_aux2total(list);
+                    total = q2_aux2total(list);
                     
     
                 }
             }
             }
         }
-        for (String vis : visited){
+        for (int vis : total){
             System.out.println(" "+vis+" ");
         }
     
+       return total;
+        }
+
+        public List<Integer> query2DFS (String origem,String freguesia){
+            Set<java.lang.String> caminho = new LinkedHashSet<>();
+            Stack<java.lang.String> stack = new Stack<>();
+            List<Integer> total = new ArrayList<Integer>();
+            stack.push(origem);
+            while (!stack.isEmpty()) {
+                java.lang.String vertice = stack.pop();
+                if (!caminho.contains(vertice)) {
+                    caminho.add(vertice);
+                    for (Nodo nodo : grafo.getAdjVertices(origem)) {
+                        if(nodo.getFreguesia().equals(freguesia)) {
+                            List<Encomenda> list = q2_aux(freguesia);
+                            total = q2_aux2total(list);
+                            stack.push(nodo.getDestino());
+                        }
+                    }
+                }
+            }
+            for (Integer vis : total){
+                System.out.println(" "+vis+" ");
+            }
+    
+            return total;
+        }
+
+
+
+
+
+
+
+
+
+        public Integer q4BFS(String root, String freguesia){
+            Set<String> visited = new LinkedHashSet<String>();
+            Queue<String>queue =new LinkedList<String>();
+            int acumul=0;
+            queue.add(root);
+            visited.add(root);
+            while(!queue.isEmpty()){
+                String vertex =queue.poll();
+                for(Nodo v: grafo.getAdjVertices(vertex)){
+                    if ( v.getFreguesia().equals(freguesia)){
+                        //System.out.println(v.getQuilometros());
+                    if(visited.contains(v.getOrigem()) && !visited.contains(v.getDestino())){
+                        System.out.println(v.getQuilometros());
+                        acumul+=v.getQuilometros();
+                        visited.add(v.getDestino());
+                        queue.add(v.getDestino());
+        
+                    }
+                }
+                }
+            }
+        
+            return acumul;
+        }
+
+   
+
         
 
-    }
+            public Integer query4DFS (String origem,String freguesia){
+                Set<java.lang.String> caminho = new LinkedHashSet<>();
+                Stack<java.lang.String> stack = new Stack<>();
+                List<Integer> total = new ArrayList<Integer>();
+                int acumul=0;
+                stack.push(origem);
+                while (!stack.isEmpty()) {
+                    java.lang.String vertice = stack.pop();
+                    if (!caminho.contains(vertice)) {
+                        caminho.add(vertice);
+                        for (Nodo nodo : grafo.getAdjVertices(origem)) {
+                            if(nodo.getFreguesia().equals(freguesia)) {
+                                System.out.println(nodo);
+                                System.out.println(nodo.getQuilometros());
+                                acumul+=nodo.getQuilometros();
+
+                            }
+                        }
+                    }
+                }
+                for (Integer vis : total){
+                    System.out.println(" "+vis+" ");
+                }
+        
+                return acumul;
+            }
+    
+
+
+
+
+
+      
+            }
+        
+
+
+
+
+
+
+
+
+
+        
+    
+        
+
+    
 
 
 
 
        
 
-    }
+    
 
 
 

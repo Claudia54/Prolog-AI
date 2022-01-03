@@ -6,16 +6,16 @@ import java.util.Set;
 
 public class Encomenda {
     private String id ;
-    private Integer volume;
-    private Integer peso;
+    private int volume;
+    private int peso;
     private String veiculo;
     private LocalDateTime data;
     private LocalDateTime dataencomenda;
     private String estafeta;
     private String destino;
-    private Integer velocidade;
+    private Double velocidade;
 
-    public Encomenda(String id, Integer volume, Integer peso, String veiculo, LocalDateTime data, LocalDateTime dataencomenda, String estafeta, String destino, Integer velocidade) {
+    public Encomenda(String id, int volume, int peso, String veiculo, LocalDateTime data, LocalDateTime dataencomenda, String estafeta, String destino,Double velocidade) {
         this.id = id;
         this.volume = volume;
         this.peso = peso;
@@ -24,7 +24,7 @@ public class Encomenda {
         this.dataencomenda = dataencomenda;
         this.estafeta = estafeta;
         this.destino = destino;
-        this.velocidade = velocidade;
+        this.velocidade=velocidade;
     }
 
     public Encomenda(Encomenda e){
@@ -35,11 +35,11 @@ public class Encomenda {
         this.data = e.getData();
         this.dataencomenda = e.getDataencomenda();
         this.estafeta = e.getEstafeta();
-        this.destino = e.getDestino();
-        this.velocidade = e.getVelocidade();
+        this.destino= e.getDestino();
+        this.velocidade=e.getVelocidade();
     }
 
-        public String getId() {
+    public String getId() {
         return id;
     }
 
@@ -47,7 +47,7 @@ public class Encomenda {
         this.id = id;
     }
 
-    public Integer getVolume() {
+    public int getVolume() {
         return volume;
     }
 
@@ -55,7 +55,7 @@ public class Encomenda {
         this.volume = volume;
     }
 
-    public Integer getPeso() {
+    public int getPeso() {
         return peso;
     }
 
@@ -96,21 +96,23 @@ public class Encomenda {
     }
 
     public String getDestino() {
-        return destino;
+        return this.destino;
     }
 
-    public void setDestino(String destino) {
-        this.destino = destino;
+    public void setNodo(String Destino) {
+        this.destino= Destino;
     }
 
-    public Integer getVelocidade() {
+    public Double getVelocidade() {
         return velocidade;
     }
 
-    public void setVelocidade(Integer velocidade) {
+    public void setVelocidade(Double velocidade) {
         this.velocidade = velocidade;
     }
-}
+  
+
+    }
 
 
 
