@@ -175,7 +175,7 @@ public Set<String> q1BFS(String root, String freguesia){
 
 
 
-    public Integer q4BFS(String root, String freguesia){
+    public int q4BFS(String root, String freguesia){
         Set<String> visited = new LinkedHashSet<String>();
         Queue<String>queue =new LinkedList<String>();
         int acumul=0;
@@ -192,12 +192,9 @@ public Set<String> q1BFS(String root, String freguesia){
                                 queue.add(v.getDestino());
                             }
                             }
-
                          }
 
                      }
-
-        
             return acumul;
         }
 
@@ -226,19 +223,18 @@ public Set<String> q1BFS(String root, String freguesia){
                         }
                     }
                 }
-                for (Integer vis : total){
-                    System.out.println(" "+vis+" ");
-                }
-                return acumul;
-        }
-    
+            }
+            for (Integer vis : total){
+                System.out.println(" "+vis+" ");
+            }
+            return acumul;
+    }
     
 */
 
 
 
-      
-            }
+}
         
 
 
