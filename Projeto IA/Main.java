@@ -62,7 +62,7 @@ public class Main{
 
         //a.breathFirstTransversal(g1,"Gualtar");
         //System.out.println();
-        Controller controller = new Controller();
+        Controller controller = new Controller(g1);
         controller.initMenuInicial();
     }
     

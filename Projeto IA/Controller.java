@@ -3,14 +3,18 @@ import java.io.InvalidClassException;
 import java.util.Scanner;
 
 public class Controller {
+    Grafo grafo;
+
+    public Controller(Grafo grafo){
+        this.grafo = grafo;
+    }
+
     public void initMenuInicial(){
         Scanner scanner = new Scanner(System.in);
         boolean quit = false;
         try {
 
             View jan = new View();
-            Nodo nodo;  //DUVIDAS
-            Grafo grafo; //DUVIDAS
             while (!quit) {
                 jan.printMenu();
                 try {
@@ -21,22 +25,21 @@ public class Controller {
                             int opcao = scanner.nextInt();
                             if (opcao == 1) {
                                 jan.printIndiqueFreg();
-                                String freguesia1 = null;
-                                Queries queries1 = new Queries(); //DUVIDAS
-                                String writer1 = scanner.nextLine();
-                                while (freguesia1 == null) {
+                                Queries queries1 = new Queries(grafo);
+                                boolean search = true;
+                                while (search) {
                                     String freguesiaNome = scanner.nextLine();
-                                    if (nodo.getFreguesia().equals(freguesiaNome)) { //DUVIDAS
-                                        freguesia1 = freguesiaNome;
-                                        queries1.query1DFS("Gualtar", freguesia1);
-                                    } else {
-                                        jan.printIndiqueFregInv();
+                                    Nodo nodo = this.grafo.getNodo(freguesiaNome);
+                                    if(nodo == null)  jan.printIndiqueFregInv();
+                                    else {
+                                        queries1.query1DFS("Gualtar", freguesiaNome);
+                                        search = false;
                                     }
                                 }
                             }else if (opcao == 2) {
                                 jan.printIndiqueFreg();
                                 String freguesia2 = null;
-                                Queries queries2 = new Queries(); //DUVIDAS
+                                Queries queries2 = new Queries(grafo); //DUVIDAS
                                 String writer2 = scanner.nextLine();
                                 while (freguesia2 == null) {
                                     String freguesiaNome = scanner.nextLine();

@@ -14,7 +14,7 @@ import java.util.Stack;
 
 public class Grafo {
     //private Integer vertice;
-    private List<Nodo>lista;
+    private List<Nodo> lista;
    
 
     
@@ -26,6 +26,13 @@ public class Grafo {
     }
 
     /*Método que vai buscar todos os nodos  */
+
+    public Nodo getNodo(String origem){
+        return this.lista.stream()
+                .filter(n -> n.getOrigem().equals(origem))
+                .findFirst()
+                .orElse(null);
+    }
 
     public List<Nodo> getListaNodos() {
         LinkedList list = new LinkedList<>();
