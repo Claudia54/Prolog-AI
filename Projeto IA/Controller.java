@@ -20,24 +20,62 @@ public class Controller {
                         try {
                             int opcao = scanner.nextInt();
                             if (opcao == 1) {
-
-                            } else if (opcao == 2) {
                                 jan.printIndiqueFreg();
-                                String freguesia = null;
-                                Queries queries = new Queries(); //DUVIDAS
-                                String writer = scanner.nextLine();
-                                while (freguesia == null) {
+                                String freguesia1 = null;
+                                Queries queries1 = new Queries(); //DUVIDAS
+                                String writer1 = scanner.nextLine();
+                                while (freguesia1 == null) {
                                     String freguesiaNome = scanner.nextLine();
                                     if (nodo.getFreguesia().equals(freguesiaNome)) { //DUVIDAS
-                                        freguesia = freguesiaNome;
-                                        queries.query1DFS("Gualtar", freguesia);
+                                        freguesia1 = freguesiaNome;
+                                        queries1.query1DFS("Gualtar", freguesia1);
+                                    } else {
+                                        jan.printIndiqueFregInv();
+                                    }
+                                }
+                            }else if (opcao == 2) {
+                                jan.printIndiqueFreg();
+                                String freguesia2 = null;
+                                Queries queries2 = new Queries(); //DUVIDAS
+                                String writer2 = scanner.nextLine();
+                                while (freguesia2 == null) {
+                                    String freguesiaNome = scanner.nextLine();
+                                    if (nodo.getFreguesia().equals(freguesiaNome)) { //DUVIDAS
+                                        freguesia2 = freguesiaNome;
+                                        queries2.query1DFS("Gualtar", freguesia2);
                                     } else {
                                         jan.printIndiqueFregInv();
                                     }
                                 }
                             } else if (opcao == 3) {
+                                jan.printIndiqueFreg();
+                                String freguesia3 = null;
+                                Queries queries3 = new Queries(); //DUVIDAS
+                                String writer3 = scanner.nextLine();
+                                while (freguesia3 == null) {
+                                    String freguesiaNome = scanner.nextLine();
+                                    if (nodo.getFreguesia().equals(freguesiaNome)) { //DUVIDAS
+                                        freguesia3 = freguesiaNome;
+                                        queries3.query1DFS("Gualtar", freguesia3);
+                                    } else {
+                                        jan.printIndiqueFregInv();
+                                    }
+                                }
 
                             } else if (opcao == 4) {
+                                jan.printIndiqueFreg();
+                                String freguesia4 = null;
+                                Queries queries4 = new Queries(); //DUVIDAS
+                                String writer4 = scanner.nextLine();
+                                while (freguesia4 == null) {
+                                    String freguesiaNome = scanner.nextLine();
+                                    if (nodo.getFreguesia().equals(freguesiaNome)) { //DUVIDAS
+                                        freguesia4 = freguesiaNome;
+                                        queries4.query1DFS("Gualtar", freguesia4);
+                                    } else {
+                                        jan.printIndiqueFregInv();
+                                    }
+                                }
 
                             } else if (opcao == 0) {
                                 quit = true;
@@ -92,12 +130,16 @@ public class Controller {
                         try {
                             int opcao = scanner.nextInt();
                             if (opcao == 1) {
+                                jan.printIndiqueDest();
 
                             } else if (opcao == 2) {
+                                jan.printIndiqueDest();
 
                             } else if (opcao == 3) {
+                                jan.printIndiqueDest();
 
                             } else if (opcao == 4) {
+                                jan.printIndiqueDest();
 
                             } else if (opcao == 0) {
                                 quit = true;
@@ -112,12 +154,16 @@ public class Controller {
                         try {
                             int opcao = scanner.nextInt();
                             if (opcao == 1) {
+                                jan.printIndiqueDest();
 
                             } else if (opcao == 2) {
+                                jan.printIndiqueDest();
 
                             } else if (opcao == 3) {
+                                jan.printIndiqueDest();
 
                             } else if (opcao == 4) {
+                                jan.printIndiqueDest();
 
                             } else if (opcao == 0) {
                                 quit = true;

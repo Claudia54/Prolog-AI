@@ -33,7 +33,7 @@ public class Encomenda {
         this.data = e.getData();
         this.dataencomenda = e.getDataencomenda();
         this.estafeta = e.getEstafeta();
-        this.destino= e.getDestino();
+        this.destino = e.getDestino();
     }
 
     public String getId() {
@@ -93,19 +93,13 @@ public class Encomenda {
     }
 
     public String getDestino() {
-        return this.destino;
+        return destino;
     }
 
-    public void setNodo(String Destino) {
-        this.destino= Destino;
+    public void setDestino(String destino) {
+        this.destino = destino;
     }
-
-    
-            
-        
-
-
-    }
+}
 
 
 
