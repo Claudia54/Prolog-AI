@@ -15,9 +15,6 @@ public class Queries {
     private HashMap<String,List<Encomenda>> encomenda;
 
 
- public Queries (Grafo grafo){
-        this.grafo = grafo;
-    }
 
 
 /*
@@ -36,7 +33,7 @@ public Queries(Grafo grafo, HashMap<String,List<Encomenda>> encomenda) {
 /*
 Método que percorre o grafo BFT -->
  */
-
+/*
 public Set<String> q1BFS(String root, String freguesia){
     Set<String> visited = new LinkedHashSet<String>();
     Queue<String>queue =new LinkedList<String>();
@@ -183,10 +180,12 @@ public Set<String> q1BFS(String root, String freguesia){
           while(!queue.isEmpty()){
                 String vertex =queue.poll();
                 for(Nodo v: grafo.getAdjVertices(vertex)){
+                    System.out.println(v+"\n");
+                    //System.out.println(v.getQuilometros())
                     if(!visited.contains(v.getOrigem()) && !visited.contains(v.getDestino())){
                         if ( v.getFreguesia().equals(freguesia)){
                                 System.out.println(v.getQuilometros());
-                                System.out.println(v);
+                                //System.out.println(v);
                                 acumul+=v.getQuilometros();
                                 visited.add(v.getOrigem());
                                 queue.add(v.getDestino());
@@ -230,7 +229,7 @@ public Set<String> q1BFS(String root, String freguesia){
             return acumul;
     }
     
-*/
+    */
 
 
 

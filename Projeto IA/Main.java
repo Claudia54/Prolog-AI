@@ -83,18 +83,18 @@ public class Main{
         encomendas.put("Bagunte",listEnc2);
         //encomendas.get("Esposende").add(enc3);
 */
-           Queries q = new Queries(grafo,encomendas);
-          int num= q.q4BFS("Gualtar","Esposende");
-           q.q1BFS("Gualtar", "Esposende");
-         System.out.println(num);
+          Queries q = new Queries(grafo,encomendas);
+         int num= q.q4BFS("Gualtar","Esposende");
+          // q.q1BFS("Gualtar", "Esposende");
+           System.out.println(num);
 //        q.query1DFS("Gualtar","Esposende");
 //        q.q1BFS("Gualtar", "Esposende");
 
 
         //a.breathFirstTransversal(g1,"Gualtar");
         //System.out.println();
-//        Controller controller = new Controller(grafo);
-//        controller.initMenuInicial();
+       // Controller controller = new Controller(grafo);
+       // controller.initMenuInicial();
     }
     
     }

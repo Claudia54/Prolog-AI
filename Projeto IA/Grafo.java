@@ -22,7 +22,7 @@ public class Grafo {
     }
 
     /*Método que vai buscar todos os nodos  */
-
+/*
     public Nodo getNodo(String freguesia){
         return this.lista.stream()
                 .filter(n -> n.getFreguesia().equals(freguesia))
@@ -139,11 +139,11 @@ public class Grafo {
                 .findFirst()
                 .orElse(null);
     }
+*/
 
 
 
-
-   /* public  Nodo aStar(Nodo start, Nodo target){
+   public  Nodo aStar(Nodo start, Nodo target){
         PriorityQueue<Nodo> closedList = new PriorityQueue<>();
         PriorityQueue<Nodo> openList = new PriorityQueue<>();
 
@@ -184,7 +184,7 @@ public class Grafo {
         return null;
 }
 
-*/
+
 //   public Set<String> aEstrela(String inicial, String fim){
 //       Set<String> vizinhos = new HashSet<>();
 //       Set<String> caminho = new HashSet<>();
