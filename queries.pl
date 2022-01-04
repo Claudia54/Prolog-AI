@@ -273,8 +273,8 @@ caminho(Dest,List):-rua(Dest,P),findall(A,rua(A,P),List).
 %Gerar os circuitos de entrega, caso existam, que cubram um determinado território
 % %não informada --> n sabe o q vem a seguir
 
-adjacente(X,Y,E, grafo(_,Es)) :- member(edge(X,Y,E),Es).
-adjacente(X,Y,E, grafo(_,Es)) :- member(edge(Y,X,E),Es).
+adjacente(X,Y,E) :- edge(X,Y,E).
+adjacente(X,Y,E) :- edge(Y,X,E).
 
 caminho(G,A,B,P) :- caminho1(G,A,[B],P).
 caminho1(_,A,[A|P1],[A|P1]).

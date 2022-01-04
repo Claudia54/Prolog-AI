@@ -8,9 +8,9 @@ import java.util.Set;
 
 public class Main{
     public static void main (String[] args){
-        Nodo a = new Nodo("Gualtar", "Familia Real", 10, "Esposende");
-        Nodo a1 = new Nodo("Familia Real","Gualtar", 10, "Esposende");
-        Nodo d = new Nodo("Familia Real", "Nova America", 3, "Esposende");
+        Aresta a = new Aresta("Gualtar", "Familia Real", 10, "Esposende");
+        Aresta a1 = new Aresta("Familia Real","Gualtar", 10, "Esposende");
+        Aresta d = new Aresta("Familia Real", "Nova America", 3, "Esposende");
         Nodo b1 = new Nodo( "Nova America", "Gualtar",20, "Esposende");
         Nodo c = new Nodo("Gualtar", "Torta", 5, "Esposende");
         Nodo c1 = new Nodo( "Torta", "Gualtar",5, "Esposende");

@@ -2,6 +2,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
@@ -17,12 +18,13 @@ public class Grafo {
     public Grafo(List<Nodo> lista) {
         this.lista = lista;
     }
+    /*
     public Grafo(Grafo grafo){
         this.lista = grafo.getListaNodos();
     }
 
-    /*Método que vai buscar todos os nodos  */
-/*
+    //Método que vai buscar todos os nodos  
+
     public Nodo getNodo(String freguesia){
         return this.lista.stream()
                 .filter(n -> n.getFreguesia().equals(freguesia))
@@ -142,47 +144,13 @@ public class Grafo {
 */
 
 
-
-   public  Nodo aStar(Nodo start, Nodo target){
-        PriorityQueue<Nodo> closedList = new PriorityQueue<>();
-        PriorityQueue<Nodo> openList = new PriorityQueue<>();
-
-        start.f = start.g + start.getQuilometros();
-        openList.add(start);
-
-        while(!openList.isEmpty()){
-            Nodo n = openList.peek();
-            if(n == target){
-                return n;
-            }
-
-            for(Nodo edge :getAdjVertices(start.getOrigem())){
-                double totalWeight = n.g + edge.getQuilometros();
-
-                if(!openList.contains(edge) && !closedList.contains(edge)){
-                    edge.getOrigem() = n;
-                    edge.g = totalWeight;
-                    edge.f = m.g + m.calculateHeuristic(target);
-                    openList.add(m);
-                } else {
-                    if(totalWeight < m.g){
-                        m.parent = n;
-                        m.g = totalWeight;
-                        m.f = m.g + m.calculateHeuristic(target);
-
-                        if(closedList.contains(m)){
-                            closedList.remove(m);
-                            openList.add(m);
-                        }
-                    }
-                }
-            }
-
-            openList.remove(n);
-            closedList.add(n);
-        }
-        return null;
+public double calculateHeuristic(Nodo start, Nodo target){
+   int i = (int) Math.sqrt((java.lang.Math.pow(start.getX(),2 )-java.lang.Math.pow(target.getX(),2)-
+   (java.lang.Math.pow(start.getY(),2 )-java.lang.Math.pow(target.getY(),2))));
+    start.setH(i);
+    return this.h;
 }
+
 
 
 //   public Set<String> aEstrela(String inicial, String fim){
