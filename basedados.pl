@@ -184,26 +184,26 @@ pontorecolha(gualtar).
 %1 caminho
 
 edge(gualtar,familia_Real,10).
-edge(familia_real,gualtar,10).
+%edge(familia_real,gualtar,10).
 edge(gualtar,nova_america,20).
-edge(nova_america,gualtar,20).
+%edge(nova_america,gualtar,20).
 edge(gualtar,torta,5).
-edge(torta,gualtar,5).
+%edge(torta,gualtar,5).
 edge(familia_Real,torta,1).
-edge(torta,familia_Real,1).
+%edge(torta,familia_Real,1).
 edge(familia_real,nova_america,3).
-edge(nova_america,familia_real,3).
+%edge(nova_america,familia_real,3).
 edge(nova_america,torta,2).
-edge(torta,nova_america,2).
+%edge(torta,nova_america,2).
      
 %2 caminho (local de saida , local de chegada , distancia em km)
 edge(gualtar,vasco_da_Gama,25).
-edge(vasco_da_Gama,gualtar,25).
+%edge(vasco_da_Gama,gualtar,25).
 edge(gualtar,da_Torre,30).
-edge(da_Torre,gualtar,30).
+%edge(da_Torre,gualtar,30).
 edge(vasco_da_Gama,da_Torre,4).
-edge(da_Torre,vasco_da_Gama,4).
+%edge(da_Torre,vasco_da_Gama,4).
      
 %3 caminho
 edge(gualtar,afonso_de_Jeronimo,15).
-edge(afonso_de_Jeronimo,gualtar,15).
+%edge(afonso_de_Jeronimo,gualtar,15).

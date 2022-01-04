@@ -4,7 +4,7 @@
 % %não informada --> n sabe o q vem a seguir
 
 adjacente(X,Y,E) :- edge(X,Y,E).
-%adjacente(X,Y,E) :- edge(Y,X,E).
+adjacente(X,Y,E) :- edge(Y,X,E).
 
 bfs(Orig, Dest, Cam):- bfs2(Dest,[[Orig]],Cam).
 bfs2(Dest,[[Dest|T]|_],Cam):- reverse([Dest|T],Cam). % Caminho aparece pela ordem inversa
@@ -24,3 +24,9 @@ dfs2(Dest,Dest,LA,Cam):- reverse(LA,Cam). %caminho actual esta invertido
 dfs2(Act,Dest,LA,Cam) :- adjacente(Act,X,_), %testar ligacao entre ponto actual e um qualquer X
                          \+ member(X,LA), % testar nao circularidade p/evitar nós ja visitados
                          dfs2(X,Dest,[X|LA],Cam). %chamada recursiva
+
+
+%% QUERY 2 
+
+%BFS
+%maxVol(Orig,Dest,Cam):-
