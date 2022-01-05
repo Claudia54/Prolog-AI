@@ -117,7 +117,7 @@ caminho(catia,jessica,mota,
 
 caminho(sheila,marlene,mota,
     dataehora(hora(17,20),data(24,11,2021)),
-    encomenda(computador,1,75),8,tempo(0,10,0),2008).
+    encomenda(computador,1,75),8,tempo(0,10,0),2008). %8
 
 caminho(carlos,marlene,bicicleta,
     dataehora(hora(19,00),data(4,10,2020)),
@@ -132,6 +132,7 @@ caminho(catia,paulo,mota,
     encomenda(livros,18,100),40,tempo(0,0,8),2012).
 
 %verificar se sao clientes ou estafetas
+
 
 
  % confirmaçao -- estafeta,cliente,veiculo, data de entrega,tempo demorado ,ranking 
@@ -231,3 +232,41 @@ nodo(moure,3).
 
 nodo(afonso_de_Jeronimo,15).
 
+caminhoV(roger,sandro,
+    encomenda(roupa,5,20),25,1,200).
+
+caminhoV(ilidio,paulo,
+    encomenda(bicicleta,12,2800),45,40,2001).
+
+/*caminhoV(sheila,sandro,
+    dataehora(hora(17,20),data(24,11,2021)),
+    encomenda(roupa,5,20),3,1,2002).*/
+
+caminhoV(filipe,jessica,
+    encomenda(computador,1,75),30,1,2003).
+
+caminhoV(carlos,paulo,
+    encomenda(livros,1,5),2,10,2004).
+
+caminhoV(carlos,susana,
+    encomenda(livros,1,5),3,300,2005).
+
+caminhoV(ilidio,ogando,
+    encomenda(livros,3,15),2,48,2006).
+
+caminhoV(catia,jessica,
+    encomenda(livros,1,5),6,60,2007).
+
+caminhoV(sheila,marlene,
+    encomenda(computador,1,75),8,72,2008). %8
+
+/*caminhoV(carlos,marlene,
+    dataehora(hora(19,00),data(4,10,2020)),
+    encomenda(roupa,2,15),2,168,2010).*/
+
+/*caminhoV(carlos,marlene,
+    dataehora(hora(11,15),data(2,12,2021)),
+    encomenda(livros,1,5),20,24,2011).*/
+
+caminhoV(catia,paulo,
+    encomenda(livros,18,100),40,8,2012).

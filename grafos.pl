@@ -1,4 +1,5 @@
-:- include('basedados.pl').
+%:- include('basedados.pl').
+:-include('queries.pl').
 
 %Gerar os circuitos de entrega, caso existam, que cubram um determinado território
 % %não informada --> n sabe o q vem a seguir
@@ -75,8 +76,8 @@ obtem_melhor([_|Caminhos], MelhorCaminho) :-
 
 
 %QUERY 4
-%DPS
-maisRapidoDFS(Inicio, Path, Cost):- maisRapidoDFS2(Inicio, [], 0, Path, Cost).
+%DFS
+maisRapidoDFS(Inicio,Path, Cost):- maisRapidoDFS2(Inicio, [], 0, Path, Cost).
 
 maisRapidoDFS2(gualtar, Visited, Cost, Path, Cost):- reverse([gualtar|Visited], Path). 
 maisRapidoDFS2(Node, Visited, Cost, Path, Total):- adjacente(Node, X, Value),
@@ -84,25 +85,69 @@ maisRapidoDFS2(Node, Visited, Cost, Path, Total):- adjacente(Node, X, Value),
     NewCost is Cost + Value,
     maisRapidoDFS2(X, [Node|Visited], NewCost, Path, Total).
 
-solucao(Inicio, Path, Cost,Res) :- findall((Path,Cost),maisRapidoDFS(Inicio, Path, Cost),Lista),
-                                    predsort(compare_by_second2,Lista,L),
-                                    first(L,Res).
+solucao(Inicio,Lista) :- findall((Path,Cost),maisRapidoDFS(Inicio, Path, Cost),Lista).
+                                    %predsort(compare_by_second2,Lista,L),
+                                    %first(L,Res).
 
-                
-compare_by_second2(<, (A, B), (C, D)) :-
-    (   B @< D
-    ;   B == D,
-        A @< C ).
-compare_by_second2(=, (A, B), (C, D)) :-
-    A == C,
-    B == D.
-compare_by_second2(>, (A, B), (C, D)) :-
-    (   B @> D
-    ;   B == D,
-        A @> C ).
+fim(Inicio, Path, Cost,Res):-solucao(Inicio,Lista), 
+                             predsort(compare_by_second2,Lista,L),
+                             first(L,Res).
 
 
 first([H|T],R):- R=H.
 
-%%%%
+%%%%VOLUME E PESO
 
+%bfs(Orig, Dest, Cam):- bfs2(Dest,[[Orig]],Cam).
+%bfs2(Dest,[[Dest|T]|_],Cam):- reverse([Dest|T],Cam). % Caminho aparece pela ordem inversa
+
+%bfs2(Dest,[LA|Outros],Cam) :- LA=[Act|_],
+%                              findall([X|LA],
+%                              (Dest\==Act,adjacente(Act,X,_),\+member(X,LA),encontra),Novos),
+%                              append(Outros,Novos,Todos),
+%                              bfs2(Dest,Todos,Cam).
+
+maisRapidoDFS1(Inicio,Path, Cost,PesoeVol,Data):- maisRapidoDFS12(Inicio, [], 0, Path, Cost,0,[]).
+
+maisRapidoDFS12(gualtar, Visited, Cost, Path, Total,PesoeVol,Data):- reverse([gualtar|Visited], Path),reverse(Data).
+maisRapidoDFS12(Node, Visited, Cost, Path, Total,PesoeVol,Data):- adjacente(Node, X, Value),
+    not(member(X, Visited)), 
+    encontraVP(X,PesoVol,Data1),
+    PesoeVol1 is PesoeVol+PesoeVol1,
+    NewCost is Cost + Value,
+    maisRapidoDFS12(X, [Node|Visited], NewCost, Path, Total,PesoeVol1,[Data1|Data]).
+
+
+
+
+encontraVP(X,P,D):-clienteerua(Cliente,rua(X,_)),caminhoV(_,Cliente,encomenda(_,P,_),_,D,_).
+
+velocidadeVeiculo(PesoVol,bicicleta,Velocidade):-Velocidade is 20-(0.7*PesoVol).
+velocidadeVeiculo(PesoVol,mota,Velocidade):-Velocidade is 40-(0.5*PesoVol).
+velocidadeVeiculo(PesoVol,carro,Velocidade):-Velocidade is 60-(0.1*PesoVol).
+
+getVelocidadeEncomenda(X,PV,List):- findall((Veiculo,Velocidade),(velocidadeVeiculo(PV,Veiculo,Velocidade)),List).
+
+getV2(X,PV,(Data,Listaf)):-encontraVP(X,PV,Data),findall((List),getVelocidadeEncomenda(X,PV,List),Listaf).
+/*
+escolheVeiculo(Origem,ListaVeiculo):-maisRapidoDFS(Origem,_,Custo),
+                                      getVelocidadeEncomenda(Origem,Data,List),
+                                      comparaTempos(List,Custo,Data,Veiculo).
+*/
+comparaTempos([],_,_,_).
+comparaTempos([(X,Y)|T],Custo,Tempo,Veiculo):- TempoBic is (Custo/Y),
+                                               TempoBic>Tempo -> comparaTempos(T,Custo,Tempo,Veiculo);
+                                               Veiculo = X.
+
+
+
+
+
+%% DFS 
+/*
+dfs(Orig,Dest,Cam):- dfs2(Orig,Dest,[Orig],Cam). %condicao final: nó actual = destino
+dfs2(Dest,Dest,LA,Cam):- reverse(LA,Cam). %caminho actual esta invertido
+dfs2(Act,Dest,LA,Cam) :- adjacente(Act,X,_), %testar ligacao entre ponto actual e um qualquer X
+                         \+ member(X,LA), % testar nao circularidade p/evitar nós ja visitados
+                         %getVelocidadeEncomenda
+                         dfs2(X,Dest,[X|LA],Cam). %chamada recursiva*/
