@@ -2,16 +2,20 @@
 %rua-freguesia 
 rua(vasco_da_Gama, bagunte).
 rua(da_Torre, bagunte).
-rua(castelo_do_Norte, nogueiro).
+rua(castelo_do_Norte, esposende).%-
 rua(afonso_de_Jeronimo, prado).
 rua(familia_Real, esposende).
 rua(torta, esposende).
 rua(nova_america, esposende).
+rua(moure,bagunte).%-
+
 
 %clientes -nome , rua 
 clienteerua(ogando,rua(vasco_da_Gama, bagunte)).
 clienteerua(paulo,rua(da_Torre,bagunte)).
 %clienteerua(marlene,rua(castelo_do_Norte,nogueiro)).
+clienteerua(carla,rua(castelo_do_Norte, esposende)).
+clienteerua(pedro,(rua(moure,bagunte))).
 clienteerua(susana,rua(afonso_de_Jeronimo,prado)).
 clienteerua(jessica,rua(familia_Real, esposende)).
 clienteerua(marlene,rua(nova_america, esposende)).
@@ -191,10 +195,13 @@ edge(gualtar,torta,5).
 %edge(torta,gualtar,5).
 edge(familia_Real,torta,1).
 %edge(torta,familia_Real,1).
-edge(familia_real,nova_america,3).
+edge(familia_Real,nova_america,3).
 %edge(nova_america,familia_real,3).
 edge(nova_america,torta,2).
-%edge(torta,nova_america,2).
+
+%edge(nova_america,castelo_do_Norte,2).
+%edge(castelo_do_Norte,familia_Real,3).
+%edge(torta,castelo_do_Norte,4).
      
 %2 caminho (local de saida , local de chegada , distancia em km)
 edge(gualtar,vasco_da_Gama,25).
@@ -203,7 +210,24 @@ edge(gualtar,da_Torre,30).
 %edge(da_Torre,gualtar,30).
 edge(vasco_da_Gama,da_Torre,4).
 %edge(da_Torre,vasco_da_Gama,4).
-     
+edge(vasco_da_Gama,moure,3).%
+edge(da_Torre,moure,4).%
+
 %3 caminho
 edge(gualtar,afonso_de_Jeronimo,15).
 %edge(afonso_de_Jeronimo,gualtar,15).
+
+%custo para pesquisa informada
+nodo(gualtar,0).
+nodo(familia_Real,10).
+nodo(torta,5).
+nodo(castelo_do_Norte,25).
+nodo(nova_america,20).
+
+
+nodo(vasco_da_Gama,25).
+nodo(da_Torre,30).
+nodo(moure,3).
+
+nodo(afonso_de_Jeronimo,15).
+
