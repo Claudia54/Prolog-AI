@@ -242,8 +242,8 @@ caminhoV(ilidio,paulo,
     dataehora(hora(17,20),data(24,11,2021)),
     encomenda(roupa,5,20),3,1,2002).*/
 
-caminhoV(filipe,jessica,
-    encomenda(computador,1,75),30,1,2003).
+%caminhoV(filipe,jessica,
+%   encomenda(computador,1,75),30,1,2003).
 
 caminhoV(carlos,paulo,
     encomenda(livros,1,5),2,10,2004).
