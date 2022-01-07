@@ -7,6 +7,7 @@
 adjacente(X,Y,E) :- edge(X,Y,E).
 adjacente(X,Y,E) :- edge(Y,X,E).
 
+%BEST FIRST SEARCH
 bfs(Orig, Dest, Cam):- bfs2(Dest,[[Orig]],Cam).
 bfs2(Dest,[[Dest|T]|_],Cam):- reverse([Dest|T],Cam). % Caminho aparece pela ordem inversa
 
@@ -16,10 +17,8 @@ bfs2(Dest,[LA|Outros],Cam) :- LA=[Act|_],
                               append(Outros,Novos,Todos),
                               bfs2(Dest,Todos,Cam).
 
-/*ciclo(G,A,[A|P]) :- 
-    adjacente(A,B,_),
-    caminho(G,B,A,P).*/
 
+%DEPTH FIRST SEARCH
 dfs(Orig,Dest,Cam):- dfs2(Orig,Dest,[Orig],Cam). %condicao final: nó actual = destino
 dfs2(Dest,Dest,LA,Cam):- reverse(LA,Cam). %caminho actual esta invertido
 dfs2(Act,Dest,LA,Cam) :- adjacente(Act,X,_), %testar ligacao entre ponto actual e um qualquer X
@@ -30,25 +29,65 @@ dfs2(Act,Dest,LA,Cam) :- adjacente(Act,X,_), %testar ligacao entre ponto actual 
 
 listaDeAdjacentes(X, Lista):- findall(Y, adjacente(X, Y, _), Lista).
 
-% Retorna o node com menor custo aproximado ao destino
-menorCustoGreedy([H|ListaAdj], X):- nodo(H, CustoAprox), menorCustoAux(ListaAdj, CustoAprox, H, X). 
 
-menorCustoAux([], CustoAprox, X, X).
-menorCustoAux([H|T], CustoAprox, NodeCloser, X):- nodo(H, Y), Y>= CustoAprox, menorCustoAux(T, CustoAprox, NodeCloser, X).
-menorCustoAux([H|T], CustoAprox, NodeCloser, X):- nodo(H, Y), Y< CustoAprox, menorCustoAux(T, Y, H, X).
 
-% Algoritmo Greedy Search (Gulosa)
-greedySearch(Inicio, Path, Cost):- greedySearchAux(Inicio, [], 0, Path, Cost).
+%BUSCA ITERATIVA EM PROFUNDIDADE
+/*depth_first_iterative_deepening(Node, Solution) :- 
+    path(Node, GoalNode,[Node],Solution),
+    pontorecolha(GoalNode).
 
-greedySearchAux(gualtar, Visited, Cost, Path, Cost):- reverse([gualtar|Visited], Path).
-greedySearchAux(Node, Visited, Cost, Path, Total):- listaDeAdjacentes(Node, ListAdj),
-	menorCustoGreedy(ListAdj, NextNode),
-	not(member(NextNode, Visited)),
-	adjacente(Node, NextNode, Value),
-	NewCost is Cost + Value,
-	greedySearchAux(NextNode, [Node|Visited], NewCost, Path, Total).
+path(Node, Node, Path,Cam):-reverse(Path,Cam).
+path(FirstNode, LastNode, Path,Cam) :- 
+    path(FirstNode, OneButLast, Path,Cam),
+    adjacente(OneButLast, LastNode,_),
+    \+(member(LastNode, Path)).
+*/
 
-%% A estrela
+depth_first_iterative_deepening(Node, Solution) :- 
+                        path(Node, GoalNode, Solution),
+                        pontorecolha(GoalNode).
+
+%path1(Node, Node, Nodo,Cam):-reverse([Node|Nodo],Cam).
+path(Node, Node, [Node]).
+path(FirstNode, LastNode, [LastNode|Path]) :- 
+                    path(FirstNode, OneButLast, Path),
+                    adjacente(OneButLast, LastNode,_),
+                    not(member(LastNode, Path)).
+
+
+%GULOSA
+resolve_gulosa(Nodo, Caminho/Custo) :-
+	nodo(Nodo, Estima),
+	agulosa([[Nodo]/0/Estima], InvCaminho/Custo/_),
+	reverse(InvCaminho, Caminho).
+
+agulosa(Caminhos, Caminho) :-
+	obtem_melhor_g(Caminhos, Caminho),
+	Caminho = [Nodo|_]/_/_,
+	pontorecolha(Nodo).
+
+agulosa(Caminhos, SolucaoCaminho) :-
+	obtem_melhor_g(Caminhos, MelhorCaminho),
+	select(MelhorCaminho, Caminhos, OutrosCaminhos),
+	expande_gulosa(MelhorCaminho, ExpCaminhos),
+	append(OutrosCaminhos, ExpCaminhos, NovoCaminhos),
+    agulosa(NovoCaminhos, SolucaoCaminho).		
+
+obtem_melhor_g([Caminho], Caminho) :- !.
+
+obtem_melhor_g([Caminho1/Custo1/Est1,_/Custo2/Est2|Caminhos], MelhorCaminho) :-
+	Est1 =< Est2, !,
+	obtem_melhor_g([Caminho1/Custo1/Est1|Caminhos], MelhorCaminho).
+	
+obtem_melhor_g([_|Caminhos], MelhorCaminho) :- 
+	obtem_melhor_g(Caminhos, MelhorCaminho).
+
+expande_gulosa(Caminho, ExpCaminhos) :-
+	findall(NovoCaminho, adjacente2(Caminho,NovoCaminho), ExpCaminhos).	
+
+
+
+%%ESTRELA
 
 resolve_aestrela(Nodo, Caminho/Custo) :-
 	nodo(Nodo, Estima),
@@ -109,14 +148,19 @@ first([H|T],R):- R=H.
 
 
 %BFS
+somasecond([],0).
+somasecond([[(U,H)|T]|I],S):-
+    somasecond(I,G),S is H+G.
+
 maisRapidoBFS(Orig, Dest, Cam,Custo):- maisRapidoBFS2(Dest,[[Orig]],Cam,0,Cost).
 maisRapidoBFS2(Dest,[[Dest|T]|_],Cam,Cost,Cost):- reverse([Dest|T],Cam). % Caminho aparece pela ordem inversa
 
-maisRapidoBFS2(Dest,[LA|Outros],Cam,Cost,Total) :- LA=[Act|_],
-                                                     findall([X|LA],
-                                                     (Dest\==Act,(adjacente(Act,X,Value),\+member(X,LA),NewCost is Cost + Value)),Novos),
-                                                     append(Outros,Novos,Todos),
-                                                     maisRapidoBFS2(Dest,Todos,Cam,NewCost,Total).
+maisRapidoBFS2(Dest,[LA|Outros],Cam,Cost,Total):- LA=[Act|_],
+                                                   findall([(X,Value)|LA],
+                                                   (Dest\==Act,adjacente(Act,X,Value),\+member(X,LA)),Novos),
+                                                   somasecond(Novos,NewCost),
+                                                   append(Outros,Novos,Todos),
+                                                   maisRapidoBFS2(Dest,Todos,Cam,NewCost,Total).
 
 
 
@@ -136,10 +180,6 @@ takefirst([H|T],T).
 
 runLista([(R,T)|K],FinalLista):-percorreLista([(R,T)|K],[],FinalLista).
 
-same([ ], [ ]).   
-same([H1|R1], [H2|R2]):-
-    H1 == H2,
-    same(R1, R2).
 
 percorreLista([(gualtar,_)|_],Nodo,FinalLista):-reverse(Nodo,FinalLista).
 percorreLista([(R,T)|K],Nodo,FinalLista):-R\=gualtar,percorreLista(K,[(R,T)|Nodo],FinalLista).
@@ -186,7 +226,7 @@ volume(Origem,Peso):-maisRapidoDFS(Origem,Path,Custo),
 
 
 %TEMPO DFS
-escolheVeiculoeTempoDFS(Origem,Path,Veiculo,Time):-maisRapidoDFS(Origem,Path,Custo),
+escolheVeiculoeTempoDFS(Origem,Path,Veiculo,Time,Custo):-maisRapidoDFS(Origem,Path,Custo),
                                     auxencontra(Path,(Peso,Caminho)), 
                                     encontraMenorData(Caminho,(X,MaiorT)), 
                                     getVelocidadeEncomenda(Peso,ListVelVeic),
@@ -200,7 +240,23 @@ escolheVeiculoeTempoDFS(Origem,Path,Veiculo,Time):-maisRapidoDFS(Origem,Path,Cus
                                     encontraMenorData(Caminho,(X,MaiorT)), 
                                     getVelocidadeEncomenda(Peso,ListVelVeic),
                                     comparaTempos(ListVelVeic,Custo,MaiorT,Veiculo,Time).
+
 */
+ %TEMPO GULOSA  
+ escolheVeiculoeTempo_gulosa(Origem,Path,Veiculo,Time,Custo):-resolve_gulosa(Origem,Path/Custo),
+                                                             auxencontra(Path,(Peso,Caminho)), 
+                                                             encontraMenorData(Caminho,(X,MaiorT)), 
+                                                             getVelocidadeEncomenda(Peso,ListVelVeic),
+                                                             comparaTempos(ListVelVeic,Custo,MaiorT,Veiculo,Time).
+
+%TEMPO ESTRELA  
+
+escolheVeiculoeTempo_estrela(Origem,Path,Veiculo,Time,Custo):-resolve_aestrela(Origem,Path/Custo),
+                                                            auxencontra(Path,(Peso,Caminho)), 
+                                                            encontraMenorData(Caminho,(X,MaiorT)), 
+                                                            getVelocidadeEncomenda(Peso,ListVelVeic),
+                                                            comparaTempos(ListVelVeic,Custo,MaiorT,Veiculo,Time).
+                            
 
 
 

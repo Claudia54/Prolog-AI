@@ -214,6 +214,7 @@ edge(vasco_da_Gama,da_Torre,4).
 edge(vasco_da_Gama,moure,3).%
 edge(da_Torre,moure,4).%
 
+
 %3 caminho
 edge(gualtar,afonso_de_Jeronimo,15).
 %edge(afonso_de_Jeronimo,gualtar,15).
