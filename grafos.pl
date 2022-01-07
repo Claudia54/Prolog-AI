@@ -39,8 +39,8 @@ depth_first_iterative_deepening(Node, Cam) :-
                         reverse(Solution,Cam),
                         pontorecolha(GoalNode).
 
+path(Node, Node, []).
 %path1(Node, Node, Nodo,Cam):-reverse([Node|Nodo],Cam).
-path(Node, Node, [Node]).
 path(FirstNode, LastNode, [LastNode|Path]) :- 
                     path(FirstNode, OneButLast, Path),
                     adjacente(OneButLast, LastNode,_),
@@ -76,6 +76,11 @@ obtem_melhor_g([_|Caminhos], MelhorCaminho) :-
 
 expande_gulosa(Caminho, ExpCaminhos) :-
 	findall(NovoCaminho, adjacente2(Caminho,NovoCaminho), ExpCaminhos).	
+
+tempo_agulosa(In,Path,R):-statistics(runtime,[Start|_]),
+                       resolve_gulosa(In,Path),
+                       statistics(runtime,[Stop|_]),
+                       R is Stop+Start.
 
 
 %%-------------ESTRELA
@@ -114,6 +119,10 @@ adjacente2([Nodo|Caminho]/Custo/_, [ProxNodo,Nodo|Caminho]/NovoCusto/Est) :-
 expande_aestrela(Caminho, ExpCaminhos) :-
 	findall(NovoCaminho, adjacente2(Caminho,NovoCaminho), ExpCaminhos).
 
+tempo_aestrela(In,Path,R):-statistics(runtime,[Start|_]),
+                       resolve_aestrela(In,Path),
+                       statistics(runtime,[Stop|_]),
+                       R is Stop+Start.
 
 
 
@@ -142,26 +151,37 @@ fim(Inicio,Res):-solucao(Inicio,Path),
 first([H|_],R):- R=H.
 
 
+tempodfs(In,Path,Cost,R):-statistics(runtime,[Start|_]),
+                         maisRapidoDFS(In,Path,Cost),
+                         statistics(runtime,[Stop|_]),
+                         R is Stop+Start.
+
 %-------------BFS
 
-somasecond([],0).
-somasecond([[(_,H)|T]|_],S):-
-    somasecond(T,G),S is H+G.
 
-maisRapidoBFS(Orig, Dest, Cam,Custo):- maisRapidoBFS2(Dest,[[(Orig,0)]],Cam,0,Custo).
-maisRapidoBFS2(Dest,[[(Dest,Value)|T]|_],Cam,Cost,Cost):- reverse([(Dest,Value)|T],Cam). % Caminho aparece pela ordem inversa
+maisRapidoBFS(Dest,Orig,Cam,Custo):- maisRapidoBFS2(Dest,[[Orig,0]],Cam,Custo).
 
-maisRapidoBFS2(Dest,[(X,Cost1)|Outros],Cam,Total):- LA=[(Act,Cost)|_],
-                                                   findall([(X,Value)|LA],
-                                                   (Dest\==Act,adjacente(Act,X,Value),\+member((X,_),LA)),Novos),
-                                                   somasecond(Novos,NewCost),
-                                                   append(Outros,Novos,Todos),
-                                                   maisRapidoBFS2(Dest,Todos,Cam,NewCost,Total).
+maisRapidoBFS2(Dest,[[(Dest,C)|T]|_],Cam,C):-removeCusto([Dest/C|T],Cam).
+maisRapidoBFS2(Dest,[(LA,C)|Outros],Cam,C):-
+                        LA=[Act/CostL|_],
+                        (Act\=Dest),
+                        findall([X/Custo|LA],(adjacente(Act,X,Value),
+                        \+(member(X,LA)),Custo is CostL+ Value),Novos),
+                        append(Outros,Novos,Todos),
+                        maisRapidoBFS2(Dest,Todos,Cam,C).
 
+removeCusto([],[]).
+removeCusto([L/_|T],[L|N]):-removeCusto(T,N).
+
+tempobfs(In,Fim,Path,R):-statistics(runtime,[Start|_]),
+                         maisRapidoBFS(In,Fim,Path),
+                         statistics(runtime,[Stop|_]),
+                         R is Stop+Start.
 
 %---------------ESTRELA 
 
 maisRapido_aEstrela(Nodo,Maispequeno) :- findall(Caminho/Custo,resolve_aestrela(Nodo,Caminho/Custo),List),first(List,Maispequeno).
+
 
 %---------------GULOSA
 
