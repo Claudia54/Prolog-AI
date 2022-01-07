@@ -200,9 +200,9 @@ edge(familia_Real,nova_america,3).
 %edge(nova_america,familia_real,3).
 edge(nova_america,torta,2).
 
-%edge(nova_america,castelo_do_Norte,2).
-%edge(castelo_do_Norte,familia_Real,3).
-%edge(torta,castelo_do_Norte,4).
+edge(nova_america,castelo_do_Norte,2).
+edge(castelo_do_Norte,familia_Real,3).
+edge(torta,castelo_do_Norte,4).
      
 %2 caminho (local de saida , local de chegada , distancia em km)
 edge(gualtar,vasco_da_Gama,25).
@@ -233,41 +233,32 @@ nodo(moure,3).
 
 nodo(afonso_de_Jeronimo,15).
 
-caminhoV(roger,sandro,
-    encomenda(roupa,5,20),25,1,200).
+caminhoV(sandro,
+    encomenda(roupa,5,20),1,200).
 
-caminhoV(ilidio,paulo,
-    encomenda(bicicleta,12,2800),45,40,2001).
+caminhoV(paulo,
+    encomenda(bicicleta,12,2800),40,2001).
 
-/*caminhoV(sheila,sandro,
-    dataehora(hora(17,20),data(24,11,2021)),
-    encomenda(roupa,5,20),3,1,2002).*/
+caminhoV(paulo,
+    encomenda(livros,1,5),10,2004).
 
-%caminhoV(filipe,jessica,
-%   encomenda(computador,1,75),30,1,2003).
+caminhoV(susana,
+    encomenda(livros,1,5),300,2005).
 
-caminhoV(carlos,paulo,
-    encomenda(livros,1,5),2,10,2004).
+caminhoV(ogando,
+    encomenda(livros,3,15),48,2006).
 
-caminhoV(carlos,susana,
-    encomenda(livros,1,5),3,300,2005).
+caminhoV(jessica,
+    encomenda(livros,1,5),60,2007).
 
-caminhoV(ilidio,ogando,
-    encomenda(livros,3,15),2,48,2006).
+caminhoV(marlene,
+    encomenda(computador,1,75),72,2008). 
 
-caminhoV(catia,jessica,
-    encomenda(livros,1,5),6,60,2007).
+caminhoV(paulo,
+    encomenda(livros,18,100),8,2012).
 
-caminhoV(sheila,marlene,
-    encomenda(computador,1,75),8,72,2008). %8
+caminhoV(carla,
+    encomenda(roupa,2,15),10,20033).
 
-/*caminhoV(carlos,marlene,
-    dataehora(hora(19,00),data(4,10,2020)),
-    encomenda(roupa,2,15),2,168,2010).*/
-
-/*caminhoV(carlos,marlene,
-    dataehora(hora(11,15),data(2,12,2021)),
-    encomenda(livros,1,5),20,24,2011).*/
-
-caminhoV(catia,paulo,
-    encomenda(livros,18,100),40,8,2012).
+caminhoV(pedro,
+    encomenda(computador,1,75),4,11111).

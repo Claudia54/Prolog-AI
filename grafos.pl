@@ -1,6 +1,7 @@
 %:- include('basedados.pl').
 :-include('queries.pl').
 
+
 %Gerar os circuitos de entrega, caso existam, que cubram um determinado território
 % %não informada --> n sabe o q vem a seguir
 
@@ -32,19 +33,10 @@ listaDeAdjacentes(X, Lista):- findall(Y, adjacente(X, Y, _), Lista).
 
 
 %BUSCA ITERATIVA EM PROFUNDIDADE
-/*depth_first_iterative_deepening(Node, Solution) :- 
-    path(Node, GoalNode,[Node],Solution),
-    pontorecolha(GoalNode).
 
-path(Node, Node, Path,Cam):-reverse(Path,Cam).
-path(FirstNode, LastNode, Path,Cam) :- 
-    path(FirstNode, OneButLast, Path,Cam),
-    adjacente(OneButLast, LastNode,_),
-    \+(member(LastNode, Path)).
-*/
-
-depth_first_iterative_deepening(Node, Solution) :- 
+depth_first_iterative_deepening(Node, Cam) :- 
                         path(Node, GoalNode, Solution),
+                        reverse(Solution,Cam),
                         pontorecolha(GoalNode).
 
 %path1(Node, Node, Nodo,Cam):-reverse([Node|Nodo],Cam).
@@ -164,7 +156,7 @@ maisRapidoBFS2(Dest,[LA|Outros],Cam,Cost,Total):- LA=[Act|_],
 
 
 
-encontraVP(X,P,D):-clienteerua(Cliente,rua(X,_)),caminhoV(_,Cliente,encomenda(_,P,_),_,D,_).
+encontraVP(X,P,D):-clienteerua(Cliente,rua(X,_)),caminhoV(Cliente,encomenda(_,P,_),D,_).
 
 %em algumas tem q se passar o seg elemento
 encontraPesoDataNovo([H|T],[(H,D)|F],P) :-encontraPesoData([H|T],[(H,D)|F],0,P).
@@ -207,7 +199,7 @@ comparaTempos([(X,Y)|T],Custo,Tempo,Veiculo,TempoTrans) :- TempoTrans is (Custo/
 
 % MAIOR VOLUME E PESO DFS 
 
-encontraV(X,P1):-clienteerua(Cliente,rua(X,_)),caminhoV(_,Cliente,encomenda(_,P,V),_,_,_),P1 is P+V.
+encontraV(X,P1):-clienteerua(Cliente,rua(X,_)),caminhoV(Cliente,encomenda(_,P,V),_,_),P1 is P+V.
 
 %em algumas tem q se passar o seg elemento
 encontraPesoVNovo([H|T],P) :-encontraPesoV([H|T],0,P).
