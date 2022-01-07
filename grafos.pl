@@ -156,9 +156,38 @@ maisRapidoBFS2(Dest,[LA|Outros],Cam,Cost,Total):- LA=[Act|_],
 
 
 
-encontraVP(X,P,D):-clienteerua(Cliente,rua(X,_)),caminhoV(Cliente,encomenda(_,P,_),D,_).
+
+% MAIOR VOLUME E PESO DFS 
+encontraV(X,P1):-clienteerua(Cliente,rua(X,_)),caminhoV(Cliente,encomenda(_,P,V),_,_),P1 is P+V.
 
 %em algumas tem q se passar o seg elemento
+encontraPesoVNovo([H|T],P) :-encontraPesoV([H|T],0,P).
+%encontraPesoData(_,[],0).
+encontraPesoV([H|T],P,P).
+encontraPesoV([H|T],P,Total):-encontraV(H,P2),P1 is P+P2, encontraPesoV(T,P1,Total).
+
+auxencontra2([H|T],R):-findall((PesoVol,[H|T]),encontraPesoVNovo([H|T],PesoVol),List),reverse(List,PathR),first(PathR,R).
+
+
+volume_PesoDFS(Origem,Peso):-dfs(Origem,gualtar,Path),
+                             auxencontra2(Path,Peso).
+
+volume_PesoBFS(Origem,Peso):-bfs(Origem,gualtar,Path),
+                             auxencontra2(Path,Peso).
+
+volume_Peso_aStar(Origem,Peso):-resolve_aestrela(Origem,Path/Custo),
+                             auxencontra2(Path,Peso).
+
+
+volume_Peso_agulosa(Origem,Peso):-resolve_gulosa(Origem,Path/Custo),
+                                auxencontra2(Path,Peso).
+
+
+%FUNÇÕES AUXILIARES PARA TEMPO
+
+encontraVP(X,P,D):-clienteerua(Cliente,rua(X,_)),caminhoV(Cliente,encomenda(_,P,_),D,_).
+
+
 encontraPesoDataNovo([H|T],[(H,D)|F],P) :-encontraPesoData([H|T],[(H,D)|F],0,P).
 %encontraPesoData(_,[],0).
 encontraPesoData([H|T],[(H,D)|F],P,P).
@@ -180,8 +209,6 @@ percorreLista([(R,T)|K],Nodo,FinalLista):-R\=gualtar,percorreLista(K,[(R,T)|Nodo
 encontraMenorData(Lista,Time):-runLista(Lista,Lista1),predsort(compare_by_second2,Lista1,ListaN),first(ListaN,Time).
 
 
-
-
 velocidadeVeiculo(PesoVol,bicicleta,Velocidade):-Velocidade is 20-(0.7*PesoVol).
 velocidadeVeiculo(PesoVol,mota,Velocidade):-Velocidade is 40-(0.5*PesoVol).
 velocidadeVeiculo(PesoVol,carro,Velocidade):-Velocidade is 60-(0.1*PesoVol).
@@ -193,25 +220,6 @@ comparaTempos([],_,_,_).
 comparaTempos([(X,Y)|T],Custo,Tempo,Veiculo,TempoTrans):- G is (Custo/Y),
                                                           G >Tempo, comparaTempos(T,Custo,Tempo,Veiculo, TempoTrans).
 comparaTempos([(X,Y)|T],Custo,Tempo,Veiculo,TempoTrans) :- TempoTrans is (Custo/Y), TempoTrans =< Tempo, Veiculo = X, TempoTrans = TempoTrans.
-
-
-
-
-% MAIOR VOLUME E PESO DFS 
-
-encontraV(X,P1):-clienteerua(Cliente,rua(X,_)),caminhoV(Cliente,encomenda(_,P,V),_,_),P1 is P+V.
-
-%em algumas tem q se passar o seg elemento
-encontraPesoVNovo([H|T],P) :-encontraPesoV([H|T],0,P).
-%encontraPesoData(_,[],0).
-encontraPesoV([H|T],P,P).
-encontraPesoV([H|T],P,Total):-encontraV(H,P2),P1 is P+P2, encontraPesoV(T,P1,Total).
-
-auxencontra2([H|T],R):-findall((PesoVol,[H|T]),encontraPesoVNovo([H|T],PesoVol),List),reverse(List,PathR),first(PathR,R).
-
-
-volume(Origem,Peso):-maisRapidoDFS(Origem,Path,Custo),
-                     auxencontra2(Path,Peso).
 
 
 
