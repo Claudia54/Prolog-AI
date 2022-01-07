@@ -225,8 +225,8 @@ query12(Lista) :-
 :- op(900,xfy,'::' ).
 
 %verifica inserção --> não aceita se já existir numero de série
-+caminho(Estafeta, Cliente, Veiculo, DataHora,Encomenda,Preco,Tempo, NS) ::
- (findall((NS), caminho(_,_,_,_,_,_,_,NS),S), length(S, N) , N == 1).
+%+caminho(Estafeta, Cliente, Veiculo, DataHora,Encomenda,Preco,Tempo, NS) ::
+% (findall((NS), caminho(_,_,_,_,_,_,_,NS),S), length(S, N) , N == 1).
 
 % QUERY 14 (EXTRA)
 soma([],0).
